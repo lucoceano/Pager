@@ -18,7 +18,7 @@ CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install 
 
 #### Copying files
 
-Just copy ViewPagerController.m and ViewPagerController.h files to your project.
+Just copy PagerController.swift files to your project.
 
 ## Usage
 
