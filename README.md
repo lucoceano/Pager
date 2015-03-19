@@ -1,10 +1,10 @@
-![](https://lh4.googleusercontent.com/oCGIPXlqsYTFDjgWAJ7Oejqt16fFTk07mKAyDR4uzdCC_yTU-3neXVWU8sNCe9TojRhXCGoW2v_-JOM=w2560-h1234)
+![](https://dl.dropboxusercontent.com/u/25590533/pager_cover.jpg)
 
 Pager is the simplest and best way to implement sliding view controllers.
 
 ## Example
-![](https://lh5.googleusercontent.com/_xghIQbcIaHcLTiJb4PaJ9TDPLwcCKkrPBDlVmhCz6foB63b4WAbBimhMyWtoHvi6eFbBKeZRhiv4JY=w2560-h1234)
-![](https://lh4.googleusercontent.com/WBY43y8Uf7E0-nNiPsX2G2brQBlrSdbTldX3TvXZGUR_og3-F0HXh3V98nZvZESRRTOEWdEDxMIhQAY=w2560-h1234)
+![](https://dl.dropboxusercontent.com/u/25590533/screen2.png)
+![](https://dl.dropboxusercontent.com/u/25590533/PagerGif.gif)
 
 
 ## Installation
