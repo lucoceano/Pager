@@ -13,6 +13,7 @@
 		C8B7D1451AB25F9300E9347C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1441AB25F9300E9347C /* Images.xcassets */; };
 		C8B7D1481AB25F9300E9347C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1461AB25F9300E9347C /* LaunchScreen.xib */; };
 		C8B7D1541AB25F9300E9347C /* PagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D1531AB25F9300E9347C /* PagerTests.swift */; };
+		C8B7D15F1AB2600700E9347C /* PagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D15E1AB2600700E9347C /* PagerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		C8B7D14D1AB25F9300E9347C /* PagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B7D1521AB25F9300E9347C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B7D1531AB25F9300E9347C /* PagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTests.swift; sourceTree = "<group>"; };
+		C8B7D15E1AB2600700E9347C /* PagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		C8B7D13A1AB25F9300E9347C /* Pager */ = {
 			isa = PBXGroup;
 			children = (
+				C8B7D15D1AB25FAC00E9347C /* Library */,
 				C8B7D13D1AB25F9300E9347C /* AppDelegate.swift */,
 				C8B7D13F1AB25F9300E9347C /* ViewController.swift */,
 				C8B7D1411AB25F9300E9347C /* Main.storyboard */,
@@ -110,6 +113,14 @@
 				C8B7D1521AB25F9300E9347C /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C8B7D15D1AB25FAC00E9347C /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				C8B7D15E1AB2600700E9347C /* PagerController.swift */,
+			);
+			name = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +225,7 @@
 			files = (
 				C8B7D1401AB25F9300E9347C /* ViewController.swift in Sources */,
 				C8B7D13E1AB25F9300E9347C /* AppDelegate.swift in Sources */,
+				C8B7D15F1AB2600700E9347C /* PagerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +417,7 @@
 				C8B7D1591AB25F9300E9347C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C8B7D15A1AB25F9300E9347C /* Build configuration list for PBXNativeTarget "PagerTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +426,7 @@
 				C8B7D15C1AB25F9300E9347C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
