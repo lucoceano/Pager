@@ -104,6 +104,7 @@ class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageV
 
 
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+		super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
         self.layoutSubViews()
         self.changeActiveTabIndex(self.activeTabIndex)
     }
@@ -255,7 +256,7 @@ class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageV
     func layoutSubViews() {
         var topLayoutGuide: CGFloat = 0.0
 
-        topLayoutGuide = 20.0
+		topLayoutGuide = UIApplication.sharedApplication().statusBarHidden ? 0.0 : 20.0
         if self.navigationController != nil {
             if (!self.navigationController!.navigationBarHidden) {
                 topLayoutGuide += self.navigationController!.navigationBar.frame.size.height
@@ -438,7 +439,7 @@ class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageV
             return nil
         }
 
-        if (self.contents[index] as AnyObject?) == nil {
+        if (self.contents[index] as UIViewController?) == nil {
             var viewController: UIViewController
 
             if (self.dataSource!.respondsToSelector(Selector("controllerForTabAtIndex:pager:"))) {
@@ -459,6 +460,7 @@ class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageV
                 viewController.view = UIView()
             }
             self.contents[index] = viewController
+			self.addChildViewController(viewController)
         }
         return self.contents[index]
     }
