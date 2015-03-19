@@ -3,7 +3,6 @@
 Pager is the simplest and best way to implement sliding view controllers.
 
 ## Example
-![](http://goo.gl/aMmTaq)
 ![](http://goo.gl/FqxRGn)
 ![](http://goo.gl/7QPHVW)
 
