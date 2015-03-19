@@ -1,4 +1,4 @@
-![](https://dl.dropboxusercontent.com/u/25590533/pager_cover.jpg)
+![](http://i24.photobucket.com/albums/c50/KKS-KKS/Screen%20Shot%202015-03-17%20at%2010.18.44%20AM_1.png)
 
 Pager is the simplest and best way to implement sliding view controllers.
 
