@@ -14,19 +14,19 @@ class ViewController: PagerController, PagerDataSource {
         super.viewDidLoad()
 		self.dataSource = self
 
-		self.indicatorColor = UIColor.redColor().colorWithAlphaComponent(0.64) //  (white: 1, alpha: 0.64)
-		self.tabsViewBackgroundColor =  UIColor.grayColor().colorWithAlphaComponent(0.32)
+		self.indicatorColor = UIColor.whiteColor()
+		self.tabsViewBackgroundColor =  UIColor(rgb: 0x00AA00)
 		self.contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
 		
 		self.startFromSecondTab = false
 		self.centerCurrentTab = false
-		self.tabLocation = PagerTabLocation.Bottom
+		self.tabLocation = PagerTabLocation.Top
 		self.tabHeight = 49
 		self.tabOffset = 36
 		self.tabWidth = 96.0
 		self.fixFormerTabsPositions = false
 		self.fixLaterTabsPosition = false
-		self.animation = PagerAnimation.End
+		self.animation = PagerAnimation.During
 	}
 
 	
@@ -35,6 +35,10 @@ class ViewController: PagerController, PagerDataSource {
         // Dispose of any resources that can be recreated.
     }
 
+	func changeTab(){
+		self.selectTabAtIndex(7)
+	}
+	
 	
 	func numberOfTabs(pager: PagerController) -> Int {
 		return 10;
@@ -46,7 +50,9 @@ class ViewController: PagerController, PagerDataSource {
 		
 		var label:UILabel = UILabel()
 		label.text = title;
-		label.textColor = UIColor.blackColor()
+		label.textColor = UIColor.whiteColor()
+		label.font = UIFont.boldSystemFontOfSize(16.0)
+		label.backgroundColor = UIColor.clearColor()
 		label.sizeToFit()
 		return label
 	}
@@ -55,16 +61,29 @@ class ViewController: PagerController, PagerDataSource {
 	func viewForTabAtIndex(index: Int, pager: PagerController) -> UIView {
 		var view:UIView = UIView(frame:self.view.frame)
 		view.frame = self.view.frame
-		view.backgroundColor = UIColor.greenColor().colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
+		view.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
 		
 		var label:UILabel = UILabel()
 		label.text  = "View #\(index)"
 		label.textColor = UIColor.blackColor()
+		label.font = UIFont.boldSystemFontOfSize(16.0)
 		label.sizeToFit()
 		label.center = view.center
+		label.frame = CGRectMake(label.frame.origin.x, 20, label.frame.size.width, label.frame.size.height)
 		view.addSubview(label)
 		
 		return view
 	}
 }
 
+
+extension UIColor {
+	convenience init(rgb: UInt) {
+		self.init(
+			red: CGFloat((rgb & 0xFF0000) >> 16) / 255.0,
+			green: CGFloat((rgb & 0x00FF00) >> 8) / 255.0,
+			blue: CGFloat(rgb & 0x0000FF) / 255.0,
+			alpha: CGFloat(1.0)
+		)
+	}
+}

@@ -181,6 +181,7 @@ class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageV
             self.tabsView!.autoresizingMask = .FlexibleWidth
             self.tabsView!.backgroundColor = self.tabsViewBackgroundColor
             self.tabsView!.scrollsToTop = false
+			self.tabsView?.bounces = false
             self.tabsView!.showsHorizontalScrollIndicator = false
             self.tabsView!.showsVerticalScrollIndicator = false
             self.tabsView!.tag = 38
@@ -384,7 +385,6 @@ class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageV
             var tabView: TabView = TabView(frame: CGRectMake(0.0, 0.0, self.tabWidth, self.tabHeight))
             tabView.addSubview(tabViewContent)
             tabView.clipsToBounds = true
-            tabView.backgroundColor = UIColor.whiteColor()
             tabViewContent.center = tabView.center
 
             // Replace the null object with tabView
@@ -753,29 +753,6 @@ class TabView: UIView {
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = UIColor.clearColor()
-    }
-
-
-    override func drawRect(rect: CGRect) {
-
-        var bezierPath: UIBezierPath
-
-        // Draw top line
-        bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointZero)
-        bezierPath.addLineToPoint(CGPoint(x: CGRectGetWidth(rect), y: 0.0))
-        UIColor(white: 197 / 155, alpha: 0.75).setStroke()
-        bezierPath.lineWidth = 1.0
-        bezierPath.stroke()
-
-
-        // Draw top line
-        bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPointZero)
-        bezierPath.addLineToPoint(CGPoint(x: CGRectGetWidth(rect), y: CGRectGetHeight(rect)))
-        UIColor(white: 197 / 155, alpha: 0.75).setStroke()
-        bezierPath.lineWidth = 1.0
-        bezierPath.stroke()
     }
 }
 
