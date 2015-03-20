@@ -104,7 +104,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 
     override public func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-		super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
+        super.didRotateFromInterfaceOrientation(fromInterfaceOrientation)
         self.layoutSubViews()
         self.changeActiveTabIndex(self.activeTabIndex)
     }
@@ -153,16 +153,13 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         }
 
         // Add tabsView
-
-		self.view.viewWithTag(33)
-		
         if self.tabsView == nil {
 
             self.tabsView = UIScrollView(frame: CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.frame), self.tabHeight))
             self.tabsView!.autoresizingMask = .FlexibleWidth
             self.tabsView!.backgroundColor = self.tabsViewBackgroundColor
             self.tabsView!.scrollsToTop = false
-			self.tabsView?.bounces = false
+            self.tabsView?.bounces = false
             self.tabsView!.showsHorizontalScrollIndicator = false
             self.tabsView!.showsVerticalScrollIndicator = false
             self.tabsView!.tag = 38
@@ -175,7 +172,6 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         // Add tab views to _tabsView
         var contentSizeWidth: CGFloat = 0.0
 
-		
         // Give the standard offset if fixFormerTabsPositions is provided as YES
         if (self.fixFormerTabsPositions) {
             // And if the centerCurrentTab is provided as YES fine tune the offset according to it
@@ -222,14 +218,16 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         let index: Int = self.startFromSecondTab ? 1 : 0
         self.selectTabAtIndex(index, swipe: true)
 
-        //creates the indicator
-        var rect: CGRect = self.tabViewAtIndex(self.activeContentIndex)!.frame
-        rect.origin.y = rect.size.height - self.indicatorHeight
-        rect.size.height = self.indicatorHeight
+        if (self.tabCount > 0) {
+            //creates the indicator
+            var rect: CGRect = self.tabViewAtIndex(self.activeContentIndex)!.frame
+            rect.origin.y = rect.size.height - self.indicatorHeight
+            rect.size.height = self.indicatorHeight
 
-        self.underlineStroke = UIView(frame: rect)
-        self.underlineStroke.backgroundColor = self.indicatorColor
-        self.tabsView!.addSubview(self.underlineStroke)
+            self.underlineStroke = UIView(frame: rect)
+            self.underlineStroke.backgroundColor = self.indicatorColor
+            self.tabsView!.addSubview(self.underlineStroke)
+        }
 
         // Set setup done
         self.defaultSetupDone = true
@@ -239,7 +237,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
     func layoutSubViews() {
         var topLayoutGuide: CGFloat = 0.0
 
-		topLayoutGuide = UIApplication.sharedApplication().statusBarHidden ? 0.0 : 20.0
+        topLayoutGuide = UIApplication.sharedApplication().statusBarHidden ? 0.0 : 20.0
         if self.navigationController != nil {
             if (!self.navigationController!.navigationBarHidden) {
                 topLayoutGuide += self.navigationController!.navigationBar.frame.size.height
@@ -285,11 +283,11 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         self.defaultSetup()
         self.view.setNeedsDisplay()
     }
-	
-	
-	public func selectTabAtIndex(index: Int) {
-		self .selectTabAtIndex(index, swipe: false)
-	}
+
+
+    public func selectTabAtIndex(index: Int) {
+        self .selectTabAtIndex(index, swipe: false)
+    }
 
 
     func indexForViewController(viewController: UIViewController) -> Int {
@@ -442,7 +440,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
                 viewController.view = UIView()
             }
             self.contents[index] = viewController
-			self.addChildViewController(viewController)
+            self.addChildViewController(viewController)
         }
         return self.contents[index]
     }
@@ -633,7 +631,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         self.didTapOnTabView = false
     }
 
-	
+
     public func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
         if self.actualDelegate != nil {
             if (self.actualDelegate!.respondsToSelector(Selector("scrollViewShouldScrollToTop:"))) {
@@ -643,8 +641,8 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         return false
     }
 
-	
-  public   func scrollViewDidScrollToTop(scrollView: UIScrollView) {
+
+    public func scrollViewDidScrollToTop(scrollView: UIScrollView) {
         if self.actualDelegate != nil {
             if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidScrollToTop:"))) {
                 self.actualDelegate!.scrollViewDidScrollToTop!(scrollView)
