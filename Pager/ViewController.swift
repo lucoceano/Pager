@@ -9,6 +9,8 @@
 import UIKit
 
 class ViewController: PagerController, PagerDataSource {
+    
+    var content: [String] = []
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,26 @@ class ViewController: PagerController, PagerDataSource {
 		self.fixFormerTabsPositions = false
 		self.fixLaterTabsPosition = false
 		self.animation = PagerAnimation.During
+        
+        self.content = [String](count:10, repeatedValue: "")
+        for index in 0...9 {
+            println("index: \(index)")
+            self.content[index] = "Tab #\(index)"
+        }
+        
+        var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("someSelector"), userInfo: nil, repeats: false)
 	}
+    
+
+    
+    func someSelector() {
+        self.content = [String](count:3, repeatedValue: "")
+        for index in 0...2 {
+            println("index: \(index)")
+            self.content[index] = "Tab #\(index)"
+        }
+        self.reloadData()
+    }
 
 	
     override func didReceiveMemoryWarning() {
@@ -41,12 +62,12 @@ class ViewController: PagerController, PagerDataSource {
 	
 	
 	func numberOfTabs(pager: PagerController) -> Int {
-		return 10;
+		return self.content.count;
 	}
 
 	
 	func tabViewForIndex(index: Int, pager:PagerController) -> UIView{
-		var title = "Tab #\(index)"
+		var title = self.content[index]
 		
 		var label:UILabel = UILabel()
 		label.text = title;
@@ -64,7 +85,7 @@ class ViewController: PagerController, PagerDataSource {
 		view.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
 		
 		var label:UILabel = UILabel()
-		label.text  = "View #\(index)"
+		label.text  = self.content[index]
 		label.textColor = UIColor.blackColor()
 		label.font = UIFont.boldSystemFontOfSize(16.0)
 		label.sizeToFit()

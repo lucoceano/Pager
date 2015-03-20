@@ -132,7 +132,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
     func defaultSetup() {
         // Empty tabs and contents
         for (tabView: UIView?) in self.tabs {
-            tabView!.removeFromSuperview()
+            tabView?.removeFromSuperview()
         }
 
         self.tabs.removeAll(keepCapacity: true)
