@@ -137,6 +137,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
         self.tabs.removeAll(keepCapacity: true)
         self.contents.removeAll(keepCapacity: true)
+		self.underlineStroke.removeFromSuperview()
 
         // Get tabCount from dataSource
         self.tabCount = self.dataSource!.numberOfTabs(self)
