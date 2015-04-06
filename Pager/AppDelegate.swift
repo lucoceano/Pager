@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let viewController = ViewController()
 		var navController = UINavigationController(rootViewController: viewController)
 		navController.navigationBar.topItem?.title = "Pager"
+        navController.navigationBar.
 		navController.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Tab #7", style: .Bordered, target: viewController, action: Selector("changeTab"))
 		navController.navigationBar.hideBottomHairline()
 		

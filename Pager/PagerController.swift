@@ -237,12 +237,9 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
     func layoutSubViews() {
         var topLayoutGuide: CGFloat = 0.0
-
-        topLayoutGuide = UIApplication.sharedApplication().statusBarHidden ? 0.0 : 20.0
-        if self.navigationController != nil {
-            if (!self.navigationController!.navigationBarHidden) {
-                topLayoutGuide += self.navigationController!.navigationBar.frame.size.height
-            }
+        if  (self.navigationController?.navigationBar.translucent != false) {
+            topLayoutGuide = UIApplication.sharedApplication().statusBarHidden ? 0.0 : 20.0
+            topLayoutGuide += self.navigationController!.navigationBar.frame.size.height
         }
 
         var frame: CGRect = self.tabsView!.frame
