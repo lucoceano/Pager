@@ -32,7 +32,7 @@ class ViewController: PagerController, PagerDataSource {
         
         self.content = [String](count:10, repeatedValue: "")
         for index in 0...9 {
-            println("index: \(index)")
+            print("index: \(index)")
             self.content[index] = "Tab #\(index)"
         }
         
@@ -42,9 +42,9 @@ class ViewController: PagerController, PagerDataSource {
 
     
     func someSelector() {
-        self.content = [String](count:3, repeatedValue: "")
-        for index in 0...2 {
-            println("index: \(index)")
+        self.content = [String](count:8, repeatedValue: "")
+        for index in 0...7 {
+            print("index: \(index)")
             self.content[index] = "Tab #\(index)"
         }
         self.reloadData()
@@ -67,9 +67,9 @@ class ViewController: PagerController, PagerDataSource {
 
 	
 	func tabViewForIndex(index: Int, pager:PagerController) -> UIView{
-		var title = self.content[index]
+		let title = self.content[index]
 		
-		var label:UILabel = UILabel()
+		let label:UILabel = UILabel()
 		label.text = title;
 		label.textColor = UIColor.whiteColor()
 		label.font = UIFont.boldSystemFontOfSize(16.0)
@@ -80,11 +80,11 @@ class ViewController: PagerController, PagerDataSource {
 	
 	
 	func viewForTabAtIndex(index: Int, pager: PagerController) -> UIView {
-		var view:UIView = UIView(frame:self.view.frame)
+		let view:UIView = UIView(frame:self.view.frame)
 		view.frame = self.view.frame
 		view.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
 		
-		var label:UILabel = UILabel()
+		let label:UILabel = UILabel()
 		label.text  = self.content[index]
 		label.textColor = UIColor.blackColor()
 		label.font = UIFont.boldSystemFontOfSize(16.0)

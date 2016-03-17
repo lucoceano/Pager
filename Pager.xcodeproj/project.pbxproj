@@ -167,6 +167,8 @@
 		C8B7D1301AB25F9300E9347C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Cheesecake;
 				TargetAttributes = {
