@@ -480,15 +480,19 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         weak var wSelf: PagerController? = self
 
         if (activeContentIndex == self.activeContentIndex) {
+          dispatch_async(dispatch_get_main_queue(), {
+            () -> Void in
 
             self.pageViewController.setViewControllers([viewController!], direction: .Forward, animated: false, completion: {
                 (completed: Bool) -> Void in
                 wSelf!.animatingToTab = false
             })
-
+          })
         } else if (!(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex)) {
 
             let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .Reverse : .Forward
+          dispatch_async(dispatch_get_main_queue(), {
+            () -> Void in
 
             self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: {
                 (completed: Bool) -> Void in
@@ -500,14 +504,17 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
                     wPageViewController!.setViewControllers([viewController!], direction: direction, animated: false, completion: nil)
                 })
             })
-
+          })
         } else {
             let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .Reverse : .Forward
+          dispatch_async(dispatch_get_main_queue(), {
+            () -> Void in
 
             self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: {
                 (completed: Bool) -> Void in
                 wSelf!.animatingToTab = true
             })
+          })
         }
 
         // Clean out of sight contents
