@@ -18,11 +18,17 @@ class ViewController: PagerController, PagerDataSource {
 
 		customiseTab()
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let controller1 = storyboard.instantiateViewControllerWithIdentifier("greenVC")
-    let controller2 = storyboard.instantiateViewControllerWithIdentifier("blueVC")
-
-		titles = ["green", "blue"]
-		setupPager(tabNames: titles, tabControllers: [controller1, controller2])
+    let controller1 = storyboard.instantiateViewControllerWithIdentifier("firstView")
+    let controller2 = storyboard.instantiateViewControllerWithIdentifier("secondView")
+    let controller3 = storyboard.instantiateViewControllerWithIdentifier("thirdView")
+    let controller4 = storyboard.instantiateViewControllerWithIdentifier("fourthView")
+    let controller5 = storyboard.instantiateViewControllerWithIdentifier("fifthView")
+    let controller6 = storyboard.instantiateViewControllerWithIdentifier("sixthView")
+    
+    // Setting up the PagerController with Name of the Tabs and their respective ViewControllers
+    self.setupPager(
+      tabNames: ["Blue", "Orange", "Light Blue", "Grey", "Purple", "Green"],
+      tabControllers: [controller1, controller2, controller3, controller4, controller5, controller6])
 	}
 
 	func customiseTab()
@@ -48,7 +54,6 @@ class ViewController: PagerController, PagerDataSource {
 	}
 
 	func changeTab() {
-		self.selectTabAtIndex(7)
+		self.selectTabAtIndex(4)
 	}
 }
-

@@ -52,8 +52,8 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	public var centerCurrentTab: Bool = false
 	public var fixFormerTabsPositions: Bool = false
 	public var fixLaterTabsPosition: Bool = false
-  private var tabNames: [String] = []
-  private var tabControllers: [UIViewController] = []
+	private var tabNames: [String] = []
+	private var tabControllers: [UIViewController] = []
 
 	// Tab and content stuff
 	internal var tabsView: UIScrollView?
@@ -80,16 +80,15 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	internal var defaultSetupDone: Bool = false
 	internal var didTapOnTabView: Bool = false
 
-  
-  //MARK: - Important Methods
-  //TODO: Find a good place to put this method
-  /// Initializing PagerController with Name of the Tabs and their respective ViewControllers
-  public func setupPager(tabNames tabNames: [String], tabControllers: [UIViewController])
-  {
-    self.tabNames = tabNames
-    self.tabControllers = tabControllers
-  }
-  
+	// MARK: - Important Methods
+	// TODO: Find a good place to put this method
+	/// Initializing PagerController with Name of the Tabs and their respective ViewControllers
+	public func setupPager(tabNames tabNames: [String], tabControllers: [UIViewController])
+	{
+		self.tabNames = tabNames
+		self.tabControllers = tabControllers
+	}
+
 	override public func viewDidLoad() {
 		super.viewDidLoad()
 		self.defaultSettings()
@@ -141,15 +140,15 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		self.underlineStroke.removeFromSuperview()
 
 		// Get tabCount from dataSource
-    
-    if let num = self.dataSource!.numberOfTabs?(self)
-    {
-      self.tabCount = num
-    }
-    else
-    {
-      self.tabCount = tabControllers.count
-    }
+
+		if let num = self.dataSource!.numberOfTabs?(self)
+		{
+			self.tabCount = num
+		}
+		else
+		{
+			self.tabCount = tabControllers.count
+		}
 
 		// Populate arrays with nil
 		self.tabs = Array(count: self.tabCount, repeatedValue: nil)
@@ -361,18 +360,18 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 			{
 				tabViewContent = tab
 			}
-      else
-      {
-        let title = self.tabNames[index]
-        
-        let label: UILabel = UILabel()
-        label.text = title;
-        label.textColor = UIColor.whiteColor()
-        label.font = UIFont.boldSystemFontOfSize(16.0)
-        label.backgroundColor = UIColor.clearColor()
-        label.sizeToFit()
-        tabViewContent = label
-      }
+			else
+			{
+				let title = self.tabNames[index]
+
+				let label: UILabel = UILabel()
+				label.text = title;
+				label.textColor = UIColor.whiteColor()
+				label.font = UIFont.boldSystemFontOfSize(16.0)
+				label.backgroundColor = UIColor.clearColor()
+				label.sizeToFit()
+				tabViewContent = label
+			}
 			tabViewContent.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
 
 			let tabView: TabView = TabView(frame: CGRectMake(0.0, 0.0, self.tabWidth, self.tabHeight))
@@ -446,10 +445,10 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 				viewController = UIViewController()
 				viewController.view = view
 			} else {
-        viewController = self.tabControllers[index]
+				viewController = self.tabControllers[index]
 			}
 			self.contents[index] = viewController
-			self.addChildViewController(viewController)
+			self.pageViewController.addChildViewController(viewController)
 		}
 		return self.contents[index]
 	}
