@@ -57,31 +57,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 }
-
-extension UINavigationBar {
-  
-  func hideBottomHairline() {
-    let navigationBarImageView = hairlineImageViewInNavigationBar(self)
-    navigationBarImageView!.hidden = true
-  }
-  
-  func showBottomHairline() {
-    let navigationBarImageView = hairlineImageViewInNavigationBar(self)
-    navigationBarImageView!.hidden = false
-  }
-  
-  private func hairlineImageViewInNavigationBar(view: UIView) -> UIImageView? {
-    if view.isKindOfClass(UIImageView) && view.bounds.size.height <= 1.0 {
-      return (view as! UIImageView)
-    }
-    
-    let subviews = (view.subviews as [UIView])
-    for subview: UIView in subviews {
-      if let imageView: UIImageView = hairlineImageViewInNavigationBar(subview) {
-        return imageView
-      }
-    }
-    
-    return nil
-  }
-}
