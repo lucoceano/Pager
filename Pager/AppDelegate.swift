@@ -14,22 +14,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
+    
     self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
     let viewController = ViewController()
-    var navController = UINavigationController(rootViewController: viewController)
+    
+    //NavigationController with title and button
+    let navController = UINavigationController(rootViewController: viewController)
     navController.navigationBar.topItem?.title = "Pager"
-    navController.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Tab #7", style: .Bordered, target: viewController, action: Selector("changeTab"))
+    navController.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Purple Tab", style: .Plain, target: viewController, action: Selector("changeTab"))
     navController.navigationBar.hideBottomHairline()
     
     self.window!.rootViewController = navController
     self.window?.makeKeyAndVisible()
     
+    //NavigationBar customization
     UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()] // Title's text color
     UINavigationBar.appearance().shadowImage = UIImage()
     UINavigationBar.appearance().barTintColor = UIColor(rgb: 0x00AA00)
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     
+    //Setting Status Bar to be white instead of black
     UIApplication.sharedApplication().statusBarStyle = .LightContent
     
     return true
