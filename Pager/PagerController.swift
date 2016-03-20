@@ -9,18 +9,22 @@
 import Foundation
 import UIKit.UITableView
 
+//MARK: - Pager Enums
+//Enum for the location of the tab bar
 public enum PagerTabLocation: Int {
-	case None = 0
-	case Top = 1
-	case Bottom = 2
+  case None = 0 //None will go to the bottom
+  case Top = 1
+  case Bottom = 2
 }
 
+//Enum for the animation of the tab indicator
 public enum PagerAnimation: Int {
-	case None = 0
-	case End = 1
-	case During = 2
+  case None = 0 // No animation
+  case End = 1 //pager indicator will animate after the VC changes
+  case During = 2 //pager indicator will animate as the VC changes
 }
 
+//MARK: - Protocols
 @objc public protocol PagerDelegate: NSObjectProtocol {
 	optional func didChangeTabToIndex(pager: PagerController, index: Int)
 	optional func didChangeTabToIndex(pager: PagerController, index: Int, previousIndex: Int)
@@ -36,7 +40,7 @@ public enum PagerAnimation: Int {
 
 public class PagerController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
 
-	// public properties
+  // MARK: - public properties
 	public var contentViewBackgroundColor: UIColor = UIColor.whiteColor()
 	public var indicatorColor: UIColor = UIColor.redColor()
 	public var tabsViewBackgroundColor: UIColor = UIColor.grayColor()
@@ -55,7 +59,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	private var tabNames: [String] = []
 	private var tabControllers: [UIViewController] = []
 
-	// Tab and content stuff
+  // MARK: - Tab and content stuff
 	internal var tabsView: UIScrollView?
 	internal var pageViewController: UIPageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
 	internal var actualDelegate: UIScrollViewDelegate?
@@ -69,7 +73,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		return contentView
 	}
 
-	// Tab and content cache
+  // MARK: - Tab and content cache
 	internal var underlineStroke: UIView = UIView()
 	internal var tabs: [UIView?] = []
 	internal var contents: [UIViewController?] = []
@@ -83,12 +87,22 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	// MARK: - Important Methods
 	// TODO: Find a good place to put this method
 	/// Initializing PagerController with Name of the Tabs and their respective ViewControllers
-	public func setupPager(tabNames tabNames: [String], tabControllers: [UIViewController])
-	{
-		self.tabNames = tabNames
-		self.tabControllers = tabControllers
-	}
+  public func setupPager(tabNames tabNames: [String], tabControllers: [UIViewController])
+  {
+    self.tabNames = tabNames
+    self.tabControllers = tabControllers
+  }
+  
+  public func reloadData() {
+    self.defaultSetup()
+    self.view.setNeedsDisplay()
+  }
+  
+  public func selectTabAtIndex(index: Int) {
+    self .selectTabAtIndex(index, swipe: false)
+  }
 
+  //MARK: - Other Methods
 	override public func viewDidLoad() {
 		super.viewDidLoad()
 		self.defaultSettings()
@@ -117,6 +131,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		// Dispose of any resources that can be recreated.
 	}
 
+  //MARK: - Private Methods
 	func defaultSettings() {
 		for (view): (UIView) in self.pageViewController.view!.subviews as [UIView] {
 			if let uiview = view as? UIScrollView {
@@ -267,28 +282,6 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 		self.contentView.frame = frame
 	}
-
-	@IBAction func handleTapGesture(sender: UITapGestureRecognizer) {
-		let tabView: UIView = sender.view!
-
-		let index: Int = self.tabs.find {
-			$0 as UIView? == tabView
-		}!
-
-		if (self.activeTabIndex != index) {
-			self.selectTabAtIndex(index)
-		}
-	}
-
-	public func reloadData() {
-		self.defaultSetup()
-		self.view.setNeedsDisplay()
-	}
-
-	public func selectTabAtIndex(index: Int) {
-		self .selectTabAtIndex(index, swipe: false)
-	}
-
 	func indexForViewController(viewController: UIViewController) -> Int {
 		for (index, element) in self.contents.enumerate() {
 			if (element == viewController) {
@@ -452,8 +445,23 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		}
 		return self.contents[index]
 	}
+  
+  
+  //MARK: - Gestures
+  @IBAction func handleTapGesture(sender: UITapGestureRecognizer) {
+    let tabView: UIView = sender.view!
+    
+    let index: Int = self.tabs.find {
+      $0 as UIView? == tabView
+      }!
+    
+    if (self.activeTabIndex != index) {
+      self.selectTabAtIndex(index)
+    }
+  }
 
-	// page data source
+
+  //MARK: - Page DataSource
 	public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
 		var index: Int = self.indexForViewController(viewController)
 		index--
@@ -466,7 +474,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		return self.viewControllerAtIndex(index)
 	}
 
-	// page delegate
+  //MARK: - Page Delegate
 	public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
 		var viewController: UIViewController = self.pageViewController.viewControllers![0] as UIViewController
 		let index: Int = self.indexForViewController(viewController)
@@ -539,7 +547,8 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		self.activeContentIndex = activeContentIndex
 	}
 
-//UIScrollViewDelegate, Responding to Scrolling and Dragging
+  //MARK: - UIScrollViewDelegate
+  //MARK: Responding to Scrolling and Dragging
 	public func scrollViewDidScroll(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
 			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidScroll:"))) {
@@ -672,7 +681,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		self.didTapOnTabView = false
 	}
 
-//UIScrollViewDelegate, Managing Zooming
+  //MARK: Managing Zooming
 	public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
 		if self.actualDelegate != nil {
 			if (self.actualDelegate!.respondsToSelector(Selector("viewForZoomingInScrollView:"))) {
@@ -706,7 +715,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		}
 	}
 
-//UIScrollViewDelegate, Responding to Scrolling Animations
+  //UIScrollViewDelegate, Responding to Scrolling Animations
 	public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
 			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidEndScrollingAnimation:"))) {
@@ -717,6 +726,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	}
 }
 
+//MARK: - TabView
 class TabView: UIView {
 
 	override init(frame: CGRect) {
@@ -730,6 +740,7 @@ class TabView: UIView {
 	}
 }
 
+//MARK: - Extensions
 extension Array {
 	func find(includedElement: Element -> Bool) -> Int? {
 		for (idx, element) in self.enumerate() {
