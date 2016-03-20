@@ -16,21 +16,25 @@ class ViewController: PagerController, PagerDataSource {
 		super.viewDidLoad()
 		self.dataSource = self
 
-		self.indicatorColor = UIColor.whiteColor()
-		self.tabsViewBackgroundColor = UIColor(rgb: 0x00AA00)
-		self.contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
-
-		self.startFromSecondTab = false
-		self.centerCurrentTab = false
-		self.tabLocation = PagerTabLocation.Top
-		self.tabHeight = 49
-		self.tabOffset = 36
-		self.tabWidth = 96.0
-		self.fixFormerTabsPositions = false
-		self.fixLaterTabsPosition = false
-		self.animation = PagerAnimation.During
-
 		setupPages(10)
+		customiseTab()
+	}
+
+	func customiseTab()
+	{
+		indicatorColor = UIColor.whiteColor()
+		tabsViewBackgroundColor = UIColor(rgb: 0x00AA00)
+		contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
+
+		startFromSecondTab = false
+		centerCurrentTab = false
+		tabLocation = PagerTabLocation.Top
+		tabHeight = 49
+		tabOffset = 36
+		tabWidth = 96.0
+		fixFormerTabsPositions = false
+		fixLaterTabsPosition = false
+		animation = PagerAnimation.During
 	}
 
 	func setupPages(count: Int)
