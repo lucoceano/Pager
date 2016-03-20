@@ -9,17 +9,17 @@
 import UIKit
 
 class ViewController: PagerController, PagerDataSource {
-    
-    var content: [String] = []
-	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+
+	var content: [String] = []
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		self.dataSource = self
 
 		self.indicatorColor = UIColor.whiteColor()
-		self.tabsViewBackgroundColor =  UIColor(rgb: 0x00AA00)
+		self.tabsViewBackgroundColor = UIColor(rgb: 0x00AA00)
 		self.contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
-		
+
 		self.startFromSecondTab = false
 		self.centerCurrentTab = false
 		self.tabLocation = PagerTabLocation.Top
@@ -29,47 +29,36 @@ class ViewController: PagerController, PagerDataSource {
 		self.fixFormerTabsPositions = false
 		self.fixLaterTabsPosition = false
 		self.animation = PagerAnimation.During
-        
-        self.content = [String](count:10, repeatedValue: "")
-        for index in 0...9 {
-            print("index: \(index)")
-            self.content[index] = "Tab #\(index)"
-        }
-        
-        var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: Selector("someSelector"), userInfo: nil, repeats: false)
+
+		setupPages(10)
 	}
-    
 
-    
-    func someSelector() {
-        self.content = [String](count:8, repeatedValue: "")
-        for index in 0...7 {
-            print("index: \(index)")
-            self.content[index] = "Tab #\(index)"
-        }
-        self.reloadData()
-    }
+	func setupPages(count: Int)
+	{
+		self.content = [String](count: count, repeatedValue: "")
+		for index in 0 ... count - 1 {
+			print("index: \(index)")
+			self.content[index] = "Tab #\(index)"
+		}
+	}
 
-	
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+	override func didReceiveMemoryWarning() {
+		super.didReceiveMemoryWarning()
+		// Dispose of any resources that can be recreated.
+	}
 
-	func changeTab(){
+	func changeTab() {
 		self.selectTabAtIndex(7)
 	}
-	
-	
+
 	func numberOfTabs(pager: PagerController) -> Int {
 		return self.content.count;
 	}
 
-	
-	func tabViewForIndex(index: Int, pager:PagerController) -> UIView{
+	func tabViewForIndex(index: Int, pager: PagerController) -> UIView {
 		let title = self.content[index]
-		
-		let label:UILabel = UILabel()
+
+		let label: UILabel = UILabel()
 		label.text = title;
 		label.textColor = UIColor.whiteColor()
 		label.font = UIFont.boldSystemFontOfSize(16.0)
@@ -77,26 +66,24 @@ class ViewController: PagerController, PagerDataSource {
 		label.sizeToFit()
 		return label
 	}
-	
-	
+
 	func viewForTabAtIndex(index: Int, pager: PagerController) -> UIView {
-		let view:UIView = UIView(frame:self.view.frame)
+		let view: UIView = UIView(frame: self.view.frame)
 		view.frame = self.view.frame
 		view.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(CGFloat(Float(arc4random()) / Float(UINT32_MAX)))
-		
-		let label:UILabel = UILabel()
-		label.text  = self.content[index]
+
+		let label: UILabel = UILabel()
+		label.text = self.content[index]
 		label.textColor = UIColor.blackColor()
 		label.font = UIFont.boldSystemFontOfSize(16.0)
 		label.sizeToFit()
 		label.center = view.center
 		label.frame = CGRectMake(label.frame.origin.x, 20, label.frame.size.width, label.frame.size.height)
 		view.addSubview(label)
-		
+
 		return view
 	}
 }
-
 
 extension UIColor {
 	convenience init(rgb: UInt) {
