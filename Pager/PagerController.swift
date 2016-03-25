@@ -134,7 +134,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
   //MARK: - Private Methods
 	func defaultSettings() {
 		for (view): (UIView) in self.pageViewController.view!.subviews as [UIView] {
-			if let uiview = view as? UIScrollView {
+			if view is UIScrollView {
 				self.actualDelegate = (view as! UIScrollView).delegate
 				(view as! UIScrollView).delegate = self
 			}
@@ -167,12 +167,12 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 		// Populate arrays with nil
 		self.tabs = Array(count: self.tabCount, repeatedValue: nil)
-		for (var i: Int = 0; i < self.tabCount; i++) {
+		for _ in 0 ..< self.tabCount {
 			self.tabs.append(nil)
 		}
 
 		self.contents = Array(count: self.tabCount, repeatedValue: nil)
-		for (var i: Int = 0; i < self.tabCount; i++) {
+		for _ in 0 ..< self.tabCount {
 			self.contents.append(nil)
 		}
 
@@ -206,8 +206,8 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 			}
 		}
 
-		for (var i: Int = 0; i < self.tabCount; i++) {
-			var tabView: UIView? = self.tabViewAtIndex(i) as UIView?
+		for i in 0 ..< self.tabCount {
+			let tabView: UIView? = self.tabViewAtIndex(i) as UIView?
 			var frame: CGRect = tabView!.frame
 			frame.origin.x = contentSizeWidth
 			frame.size.width = self.tabWidth
@@ -218,7 +218,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 			contentSizeWidth += CGRectGetWidth(tabView!.frame)
 
 			// To capture tap events
-			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTapGesture:"))
+			let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PagerController.handleTapGesture(_:)))
 			tabView!.addGestureRecognizer(tapGestureRecognizer)
 		}
 
@@ -394,7 +394,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		}
 
 		// Update every tab's frame
-		for (var i = 0; i < self.tabCount; i++) {
+		for i in 0 ..< self.tabCount {
 			let tabView = self.tabViewAtIndex(i)
 			var frame: CGRect = tabView!.frame
 			frame.origin.x = contentSizeWidth
@@ -425,9 +425,9 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		if (self.contents[index] as UIViewController?) == nil {
 			var viewController: UIViewController
 
-			if (self.dataSource!.respondsToSelector(Selector("controllerForTabAtIndex:pager:"))) {
+			if (self.dataSource!.respondsToSelector(#selector(PagerDataSource.controllerForTabAtIndex(_:pager:)))) {
 				viewController = self.dataSource.controllerForTabAtIndex!(index, pager: self)
-			} else if (self.dataSource!.respondsToSelector(Selector("viewForTabAtIndex:pager:"))) {
+			} else if (self.dataSource!.respondsToSelector(#selector(PagerDataSource.viewForTabAtIndex(_:pager:)))) {
 
 				let view: UIView = self.dataSource.viewForTabAtIndex!(index, pager: self)
 
@@ -464,19 +464,19 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
   //MARK: - Page DataSource
 	public func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
 		var index: Int = self.indexForViewController(viewController)
-		index--
+		index -= 1
 		return self.viewControllerAtIndex(index)
 	}
 
 	public func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
 		var index: Int = self.indexForViewController(viewController)
-		index++
+		index += 1
 		return self.viewControllerAtIndex(index)
 	}
 
   //MARK: - Page Delegate
 	public func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-		var viewController: UIViewController = self.pageViewController.viewControllers![0] as UIViewController
+		let viewController: UIViewController = self.pageViewController.viewControllers![0] as UIViewController
 		let index: Int = self.indexForViewController(viewController)
 		self.selectTabAtIndex(index, swipe: true)
 	}
@@ -551,7 +551,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
   //MARK: Responding to Scrolling and Dragging
 	public func scrollViewDidScroll(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidScroll:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidScroll(_:)))) {
 				self.actualDelegate!.scrollViewDidScroll!(scrollView)
 			}
 		}
@@ -624,7 +624,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewWillBeginDragging:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:)))) {
 				self.actualDelegate!.scrollViewWillBeginDragging!(scrollView)
 			}
 		}
@@ -632,7 +632,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewWillEndDragging:withVelocity:targetContentOffset:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)))) {
 				self.actualDelegate!.scrollViewWillEndDragging!(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
 			}
 		}
@@ -640,7 +640,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidEndDragging:willDecelerate:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidEndDragging(_:willDecelerate:)))) {
 				self.actualDelegate!.scrollViewDidEndDragging!(scrollView, willDecelerate: decelerate)
 			}
 		}
@@ -649,7 +649,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewShouldScrollToTop:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewShouldScrollToTop(_:)))) {
 				return self.actualDelegate!.scrollViewShouldScrollToTop!(scrollView)
 			}
 		}
@@ -658,7 +658,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewDidScrollToTop(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidScrollToTop:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidScrollToTop(_:)))) {
 				self.actualDelegate!.scrollViewDidScrollToTop!(scrollView)
 			}
 		}
@@ -666,7 +666,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewWillBeginDecelerating:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewWillBeginDecelerating(_:)))) {
 				self.actualDelegate!.scrollViewWillBeginDecelerating!(scrollView)
 			}
 		}
@@ -674,7 +674,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidEndDecelerating:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:)))) {
 				self.actualDelegate!.scrollViewDidEndDecelerating!(scrollView)
 			}
 		}
@@ -684,7 +684,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
   //MARK: Managing Zooming
 	public func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("viewForZoomingInScrollView:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.viewForZoomingInScrollView(_:)))) {
 				return self.actualDelegate!.viewForZoomingInScrollView!(scrollView)
 			}
 		}
@@ -693,7 +693,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewWillBeginZooming(scrollView: UIScrollView, withView view: UIView?) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewWillBeginZooming:withView:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:withView:)))) {
 				self.actualDelegate!.scrollViewWillBeginZooming!(scrollView, withView: view)
 			}
 		}
@@ -701,7 +701,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewDidEndZooming(scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidEndZooming:withView:atScale:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:withView:atScale:)))) {
 				self.actualDelegate!.scrollViewDidEndZooming!(scrollView, withView: view, atScale: scale)
 			}
 		}
@@ -709,7 +709,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 	public func scrollViewDidZoom(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidZoom:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidZoom(_:)))) {
 				self.actualDelegate!.scrollViewDidZoom!(scrollView)
 			}
 		}
@@ -718,7 +718,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
   //UIScrollViewDelegate, Responding to Scrolling Animations
 	public func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.respondsToSelector(Selector("scrollViewDidEndScrollingAnimation:"))) {
+			if (self.actualDelegate!.respondsToSelector(#selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:)))) {
 				self.actualDelegate!.scrollViewDidEndScrollingAnimation!(scrollView)
 			}
 		}
