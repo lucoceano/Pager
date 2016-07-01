@@ -44,6 +44,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	public var contentViewBackgroundColor: UIColor = UIColor.whiteColor()
 	public var indicatorColor: UIColor = UIColor.redColor()
 	public var tabsViewBackgroundColor: UIColor = UIColor.grayColor()
+	public var tabsTextColor: UIColor = UIColor.whiteColor()
 	public var dataSource: PagerDataSource!
 	public var delegate: PagerDelegate?
 	public var tabHeight: CGFloat = 44.0
@@ -359,7 +360,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 				let label: UILabel = UILabel()
 				label.text = title;
-				label.textColor = UIColor.whiteColor()
+				label.textColor = tabsTextColor
 				label.font = UIFont.boldSystemFontOfSize(16.0)
 				label.backgroundColor = UIColor.clearColor()
 				label.sizeToFit()
