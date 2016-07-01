@@ -276,7 +276,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 		frame.size.height = CGRectGetHeight(self.view.frame) - (topLayoutGuide + CGRectGetHeight(self.tabsView!.frame))
 
-		if (self.tabBarController != nil) {
+		if (self.tabBarController != nil && self.tabBarController?.tabBar.translucent == true) {
 			frame.size.height -= CGRectGetHeight(self.tabBarController!.tabBar.frame)
 		}
 
