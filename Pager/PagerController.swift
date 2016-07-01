@@ -306,11 +306,11 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 		self.setActiveContentIndex(index)
 
 		if self.delegate != nil {
-			if (self.delegate!.respondsToSelector(Selector("didChangeTabToIndex:didChangeTabToIndex:"))) {
+            if (self.delegate!.respondsToSelector(#selector(PagerDelegate.didChangeTabToIndex(_:index:)))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index)
-			} else if (self.delegate!.respondsToSelector(Selector("didChangeTabToIndex:didChangeTabToIndex:fromIndex:"))) {
+            } else if (self.delegate!.respondsToSelector(#selector(PagerDelegate.didChangeTabToIndex(_:index:previousIndex:)))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index, previousIndex: previousIndex)
-			} else if (self.delegate!.respondsToSelector(Selector("didChangeTabToIndex:didChangeTabToIndex:fromIndex:didSwipe:"))) {
+            } else if (self.delegate!.respondsToSelector(#selector(PagerDelegate.didChangeTabToIndex(_:index:previousIndex:swipe:)))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index, previousIndex: previousIndex, swipe: swipe)
 			}
 		}
