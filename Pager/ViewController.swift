@@ -30,12 +30,11 @@ class ViewController: PagerController, PagerDataSource {
 			tabNames: ["Blue", "Orange", "Light Blue", "Grey", "Purple", "Green"],
 			tabControllers: [controller1, controller2, controller3, controller4, controller5, controller6])
 
-		customiseTab()
+		customizeTab()
 	}
 
 	// Customising the Tab's View
-	func customiseTab()
-	{
+	func customizeTab() {
 		indicatorColor = UIColor.whiteColor()
 		tabsViewBackgroundColor = UIColor(rgb: 0x00AA00)
 		contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
@@ -49,6 +48,7 @@ class ViewController: PagerController, PagerDataSource {
 		fixFormerTabsPositions = false
 		fixLaterTabsPosition = false
 		animation = PagerAnimation.During
+		selectedTabTextColor = .blueColor()
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -60,4 +60,5 @@ class ViewController: PagerController, PagerDataSource {
 	func changeTab() {
 		self.selectTabAtIndex(4)
 	}
+
 }

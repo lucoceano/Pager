@@ -45,6 +45,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	public var indicatorColor: UIColor = UIColor.redColor()
 	public var tabsViewBackgroundColor: UIColor = UIColor.grayColor()
 	public var tabsTextColor: UIColor = UIColor.whiteColor()
+    public var selectedTabTextColor = UIColor.whiteColor()
 	public var dataSource: PagerDataSource!
 	public var delegate: PagerDelegate?
 	public var tabHeight: CGFloat = 44.0
@@ -313,8 +314,29 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
             } else if (self.delegate!.respondsToSelector(#selector(PagerDelegate.didChangeTabToIndex(_:index:previousIndex:swipe:)))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index, previousIndex: previousIndex, swipe: swipe)
 			}
+            
+            //Updating selected tab color
+            updateSelectedTab(index)
 		}
 	}
+    
+    func updateSelectedTab(index: Int) {
+        
+        //Resetting all tab colors to white
+        for tab in self.tabs {
+            
+            if let label = tab?.subviews.first as? UILabel {
+                label.textColor = .whiteColor()
+            }
+        }
+        
+        //Setting current selected tab to red
+        let tab = self.tabViewAtIndex(index)
+        if let label = tab?.subviews.first as? UILabel {
+            label.textColor = selectedTabTextColor
+        }
+    }
+
 
 	func changeActiveTabIndex(newIndex: Int) {
 
@@ -359,7 +381,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 				let title = self.tabNames[index]
 
 				let label: UILabel = UILabel()
-				label.text = title;
+				label.text = title
 				label.textColor = tabsTextColor
 				label.font = UIFont.boldSystemFontOfSize(16.0)
 				label.backgroundColor = UIColor.clearColor()
