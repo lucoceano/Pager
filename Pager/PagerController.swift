@@ -326,7 +326,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         for tab in self.tabs {
             
             if let label = tab?.subviews.first as? UILabel {
-                label.textColor = .whiteColor()
+                label.textColor = tabsTextColor
             }
         }
         
