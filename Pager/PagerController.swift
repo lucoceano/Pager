@@ -51,6 +51,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	public var tabHeight: CGFloat = 44.0
 	public var tabOffset: CGFloat = 56.0
 	public var tabWidth: CGFloat = 128.0
+    public var tabsTextFont: UIFont = UIFont.boldSystemFontOfSize(16.0)
 	public var indicatorHeight: CGFloat = 5.0
 	public var tabLocation: PagerTabLocation = PagerTabLocation.Top
 	public var animation: PagerAnimation = PagerAnimation.During
@@ -383,7 +384,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 				let label: UILabel = UILabel()
 				label.text = title
 				label.textColor = tabsTextColor
-				label.font = UIFont.boldSystemFontOfSize(16.0)
+				label.font = tabsTextFont
 				label.backgroundColor = UIColor.clearColor()
 				label.sizeToFit()
 				tabViewContent = label
