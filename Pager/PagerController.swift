@@ -49,8 +49,10 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 	public var dataSource: PagerDataSource!
 	public var delegate: PagerDelegate?
 	public var tabHeight: CGFloat = 44.0
+    public var tabTopOffset: CGFloat = 0.0
 	public var tabOffset: CGFloat = 56.0
 	public var tabWidth: CGFloat = 128.0
+    public var tabsTextFont: UIFont = UIFont.boldSystemFontOfSize(16.0)
 	public var indicatorHeight: CGFloat = 5.0
 	public var tabLocation: PagerTabLocation = PagerTabLocation.Top
 	public var animation: PagerAnimation = PagerAnimation.During
@@ -266,17 +268,17 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 
 		var frame: CGRect = self.tabsView!.frame
 		frame.origin.x = 0.0
-		frame.origin.y = (self.tabLocation == .Top) ? topLayoutGuide : CGRectGetHeight(self.view.frame) - self.tabHeight
+		frame.origin.y = (self.tabLocation == .Top) ? topLayoutGuide + tabTopOffset : CGRectGetHeight(self.view.frame) - self.tabHeight
 		frame.size.width = CGRectGetWidth(self.view.frame)
 		frame.size.height = self.tabHeight
 		self.tabsView!.frame = frame
 
 		frame = self.contentView.frame
 		frame.origin.x = 0.0
-		frame.origin.y = (self.tabLocation == .Top) ? topLayoutGuide + CGRectGetHeight(self.tabsView!.frame): topLayoutGuide
+		frame.origin.y = (self.tabLocation == .Top) ? topLayoutGuide + CGRectGetHeight(self.tabsView!.frame) + tabTopOffset : topLayoutGuide
 		frame.size.width = CGRectGetWidth(self.view.frame)
 
-		frame.size.height = CGRectGetHeight(self.view.frame) - (topLayoutGuide + CGRectGetHeight(self.tabsView!.frame))
+		frame.size.height = CGRectGetHeight(self.view.frame) - (topLayoutGuide + CGRectGetHeight(self.tabsView!.frame) + tabTopOffset)
 
 		if (self.tabBarController != nil && self.tabBarController?.tabBar.translucent == true) {
 			frame.size.height -= CGRectGetHeight(self.tabBarController!.tabBar.frame)
@@ -326,7 +328,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
         for tab in self.tabs {
             
             if let label = tab?.subviews.first as? UILabel {
-                label.textColor = .whiteColor()
+                label.textColor = tabsTextColor
             }
         }
         
@@ -383,7 +385,7 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 				let label: UILabel = UILabel()
 				label.text = title
 				label.textColor = tabsTextColor
-				label.font = UIFont.boldSystemFontOfSize(16.0)
+				label.font = tabsTextFont
 				label.backgroundColor = UIColor.clearColor()
 				label.sizeToFit()
 				tabViewContent = label
