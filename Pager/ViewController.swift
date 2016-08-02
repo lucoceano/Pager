@@ -47,8 +47,12 @@ class ViewController: PagerController, PagerDataSource {
 		tabWidth = 96.0
 		fixFormerTabsPositions = false
 		fixLaterTabsPosition = false
-		animation = PagerAnimation.During
-		selectedTabTextColor = .blueColor()
+        animation = PagerAnimation.During
+        selectedTabTextColor = .blueColor()
+        tabsTextFont = UIFont(name: "HelveticaNeue-Bold", size: 20)!
+        // tabTopOffset = 10.0
+        // tabsTextColor = .purpleColor()
+
 	}
 
 	override func didReceiveMemoryWarning() {

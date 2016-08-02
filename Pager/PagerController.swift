@@ -317,9 +317,9 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 				self.delegate!.didChangeTabToIndex!(self, index: index, previousIndex: previousIndex, swipe: swipe)
 			}
             
-            //Updating selected tab color
-            updateSelectedTab(index)
 		}
+        //Updating selected tab color
+        updateSelectedTab(index)
 	}
     
     func updateSelectedTab(index: Int) {
