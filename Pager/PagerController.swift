@@ -537,11 +537,13 @@ public class PagerController: UIViewController, UIPageViewControllerDataSource, 
 					(completed: Bool) -> Void in
 
 					wSelf?.animatingToTab = false
-
-					dispatch_async(dispatch_get_main_queue(), {
-						() -> Void in
-						wPageViewController!.setViewControllers([viewController!], direction: direction, animated: false, completion: nil)
-					})
+                    
+                    if completed {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            () -> Void in
+                            wPageViewController!.setViewControllers([viewController!], direction: direction, animated: false, completion: nil)
+                        })
+                    }
 				})
 			})
 		} else {
