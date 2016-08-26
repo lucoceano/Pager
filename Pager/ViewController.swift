@@ -21,7 +21,7 @@ class ViewController: PagerController, PagerDataSource {
 		let controller1 = storyboard.instantiateViewControllerWithIdentifier("firstView")
 		let controller2 = storyboard.instantiateViewControllerWithIdentifier("secondView")
 		let controller3 = storyboard.instantiateViewControllerWithIdentifier("thirdView")
-		let controller4 = storyboard.instantiateViewControllerWithIdentifier("fourthView")
+		let controller4 = storyboard.instantiateViewControllerWithIdentifier("tableView")
 		let controller5 = storyboard.instantiateViewControllerWithIdentifier("fifthView")
 		let controller6 = storyboard.instantiateViewControllerWithIdentifier("sixthView")
 
@@ -40,7 +40,7 @@ class ViewController: PagerController, PagerDataSource {
 		contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
 
 		startFromSecondTab = false
-		centerCurrentTab = false
+		centerCurrentTab = true
 		tabLocation = PagerTabLocation.Top
 		tabHeight = 49
 		tabOffset = 36

@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
+    var navController: UINavigationController!
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
@@ -19,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let viewController = ViewController()
     
     //NavigationController with title and button
-    let navController = UINavigationController(rootViewController: viewController)
+    navController = UINavigationController(rootViewController: viewController)
     navController.navigationBar.topItem?.title = "Pager"
-    navController.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Purple Tab", style: .Plain, target: viewController, action: Selector("changeTab"))
+    navController.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Purple Tab", style: .Plain, target: viewController, action: #selector(ViewController.changeTab))
     navController.navigationBar.hideBottomHairline()
     
     self.window!.rootViewController = navController
