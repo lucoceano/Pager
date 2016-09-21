@@ -18,12 +18,12 @@ class ViewController: PagerController, PagerDataSource {
 
 		// Instantiating Storyboard ViewControllers
 		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		let controller1 = storyboard.instantiateViewControllerWithIdentifier("firstView")
-		let controller2 = storyboard.instantiateViewControllerWithIdentifier("secondView")
-		let controller3 = storyboard.instantiateViewControllerWithIdentifier("thirdView")
-		let controller4 = storyboard.instantiateViewControllerWithIdentifier("tableView")
-		let controller5 = storyboard.instantiateViewControllerWithIdentifier("fifthView")
-		let controller6 = storyboard.instantiateViewControllerWithIdentifier("sixthView")
+		let controller1 = storyboard.instantiateViewController(withIdentifier: "firstView")
+		let controller2 = storyboard.instantiateViewController(withIdentifier: "secondView")
+		let controller3 = storyboard.instantiateViewController(withIdentifier: "thirdView")
+		let controller4 = storyboard.instantiateViewController(withIdentifier: "tableView")
+		let controller5 = storyboard.instantiateViewController(withIdentifier: "fifthView")
+		let controller6 = storyboard.instantiateViewController(withIdentifier: "sixthView")
 
 		// Setting up the PagerController with Name of the Tabs and their respective ViewControllers
 		self.setupPager(
@@ -35,30 +35,26 @@ class ViewController: PagerController, PagerDataSource {
 
 	// Customising the Tab's View
 	func customizeTab() {
-		indicatorColor = UIColor.whiteColor()
+		indicatorColor = UIColor.white
 		tabsViewBackgroundColor = UIColor(rgb: 0x00AA00)
-		contentViewBackgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.32)
+		contentViewBackgroundColor = UIColor.gray.withAlphaComponent(0.32)
 
 		startFromSecondTab = false
 		centerCurrentTab = true
-		tabLocation = PagerTabLocation.Top
+		tabLocation = PagerTabLocation.top
 		tabHeight = 49
 		tabOffset = 36
 		tabWidth = 96.0
 		fixFormerTabsPositions = false
 		fixLaterTabsPosition = false
-        animation = PagerAnimation.During
-        selectedTabTextColor = .blueColor()
+        animation = PagerAnimation.during
+        selectedTabTextColor = .blue
         tabsTextFont = UIFont(name: "HelveticaNeue-Bold", size: 20)!
         // tabTopOffset = 10.0
         // tabsTextColor = .purpleColor()
 
 	}
 
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
 
 	// Programatically selecting a tab. This function is getting called on AppDelegate
 	func changeTab() {
