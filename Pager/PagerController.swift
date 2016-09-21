@@ -103,7 +103,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	}
 
 	open func selectTabAtIndex(_ index: Int) {
-		self .selectTabAtIndex(index, swipe: false)
+		self.selectTabAtIndex(index, swipe: false)
 	}
 
 	// MARK: - Other Methods
@@ -190,6 +190,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			self.tabsView?.bounces = false
 			self.tabsView!.showsHorizontalScrollIndicator = false
 			self.tabsView!.showsVerticalScrollIndicator = false
+			self.tabsView?.isScrollEnabled = true
 			self.tabsView!.tag = 38
 
 			self.view.insertSubview(self.tabsView!, at: 0)
@@ -350,22 +351,26 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		var frame: CGRect = tabView.frame
 
 		if (self.centerCurrentTab) {
-			frame.origin.x += (frame.width / 2)
-			frame.origin.x -= (self.tabsView!.frame.width / 2)
-
-			if (frame.origin.x < 0) {
-				frame.origin.x = 0
-			}
-
-			if ((frame.origin.x + frame.width) > self.tabsView!.contentSize.width) {
+			
+			if ((frame.origin.x + frame.width + (self.tabsView!.frame.width / 2)) >= self.tabsView!.contentSize.width) {
 				frame.origin.x = (self.tabsView!.contentSize.width - self.tabsView!.frame.width)
+			} else {
+			
+				frame.origin.x += (frame.width / 2)
+				frame.origin.x -= (self.tabsView!.frame.width / 2)
+
+				if (frame.origin.x < 0) {
+					frame.origin.x = 0
+				}
+		
 			}
+
 		} else {
 			frame.origin.x -= self.tabOffset
 			frame.size.width = self.tabsView!.frame.width
 		}
 
-		self.tabsView!.scrollRectToVisible(frame, animated: true)
+		self.tabsView!.setContentOffset(frame.origin, animated: true)
 	}
 
 	func tabViewAtIndex(_ index: Int) -> TabView? {
@@ -520,7 +525,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		if (activeContentIndex == self.activeContentIndex) {
 			DispatchQueue.main.async(execute: {
-				() -> Void in
+				_ in
 
 				self.pageViewController.setViewControllers([viewController!], direction: .forward, animated: false, completion: {
 					(completed: Bool) -> Void in
@@ -531,10 +536,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
 			DispatchQueue.main.async(execute: {
-				() -> Void in
+				_ in
 
 				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: {
-					(completed: Bool) -> Void in
+					completed in
 
 					wSelf?.animatingToTab = false
                     
@@ -549,7 +554,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		} else {
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
 			DispatchQueue.main.async(execute: {
-				() -> Void in
+				_ in
 
 				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: {
 					(completed: Bool) -> Void in
