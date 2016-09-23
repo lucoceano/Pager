@@ -50,7 +50,7 @@ optional func didChangeTabToIndex(pager: PagerController, index: Int, previousIn
 
 ## Contact
 - [Lucas Farah](mailto:lucas.farah@me.com) - [@7farah7](http://twitter.com/7farah7)
-- [Lucas Martins](mailto:lucoceano@ckl.io) - [ckl.io](http://www.ckl.io)
+- [Lucas Martins](mailto:lucoceano@gmail.com) - [ckl.io](http://www.lucoceano.com)
 
 Pager is a port from [CKViewPager](https://github.com/lucoceano/CKViewPager) to swift.
 
