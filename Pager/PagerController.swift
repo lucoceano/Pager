@@ -89,10 +89,8 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	internal var didTapOnTabView: Bool = false
 
 	// MARK: - Important Methods
-	// TODO: Find a good place to put this method
-	/// Initializing PagerController with Name of the Tabs and their respective ViewControllers
-	open func setupPager(tabNames: [String], tabControllers: [UIViewController])
-	{
+	// Initializing PagerController with Name of the Tabs and their respective ViewControllers
+	open func setupPager(tabNames: [String], tabControllers: [UIViewController]) {
 		self.tabNames = tabNames
 		self.tabControllers = tabControllers
 	}
@@ -124,11 +122,12 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.layoutSubViews()
 	}
 
-	override open func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
-		super.didRotate(from: fromInterfaceOrientation)
+	open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransition(to: size, with: coordinator)
 		self.layoutSubViews()
 		self.changeActiveTabIndex(self.activeTabIndex)
 	}
+
 
 	override open func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -138,9 +137,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: - Private Methods
 	func defaultSettings() {
 		for (view): (UIView) in self.pageViewController.view!.subviews as [UIView] {
-			if view is UIScrollView {
-				self.actualDelegate = (view as! UIScrollView).delegate
-				(view as! UIScrollView).delegate = self
+			if let view = view as? UIScrollView {
+				self.actualDelegate = view.delegate
+				view.delegate = self
 			}
 		}
 
@@ -160,12 +159,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		// Get tabCount from dataSource
 
-		if let num = self.dataSource!.numberOfTabs?(self)
-		{
+		if let num = self.dataSource!.numberOfTabs?(self) {
 			self.tabCount = num
-		}
-		else
-		{
+		} else {
 			self.tabCount = tabControllers.count
 		}
 
@@ -202,9 +198,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		var contentSizeWidth: CGFloat = 0.0
 
 		// Give the standard offset if fixFormerTabsPositions is provided as YES
-		if (self.fixFormerTabsPositions) {
+		if self.fixFormerTabsPositions {
 			// And if the centerCurrentTab is provided as YES fine tune the offset according to it
-			if (self.centerCurrentTab) {
+			if self.centerCurrentTab {
 				contentSizeWidth = (self.tabsView!.frame.width - self.tabWidth) / 2.0
 			} else {
 				contentSizeWidth = self.tabOffset
@@ -228,9 +224,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		}
 
 		// Extend contentSizeWidth if fixLatterTabsPositions is provided YES
-		if (self.fixLaterTabsPosition) {
+		if self.fixLaterTabsPosition {
 			// And if the centerCurrentTab is provided as YES fine tune the content size according to it
-			if (self.centerCurrentTab) {
+			if self.centerCurrentTab {
 				contentSizeWidth += (self.tabsView!.frame.width - self.tabWidth) / 2.0
 			} else {
 				contentSizeWidth += self.tabsView!.frame.width - self.tabWidth - self.tabOffset
@@ -245,7 +241,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		let index: Int = self.startFromSecondTab ? 1 : 0
 		self.selectTabAtIndex(index, swipe: true)
 
-		if (self.tabCount > 0) {
+		if self.tabCount > 0 {
 			// creates the indicator
 			var rect: CGRect = self.tabViewAtIndex(self.activeContentIndex)!.frame
 			rect.origin.y = rect.size.height - self.indicatorHeight
@@ -262,7 +258,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	func layoutSubViews() {
 		var topLayoutGuide: CGFloat = 0.0
-		if (self.navigationController?.navigationBar.isTranslucent != false) {
+		if self.navigationController?.navigationBar.isTranslucent != false {
 			topLayoutGuide = UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
 
 			if let nav = self.navigationController {
@@ -284,23 +280,26 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		frame.size.height = self.view.frame.height - (topLayoutGuide + self.tabsView!.frame.height + tabTopOffset)
 
-		if (self.tabBarController != nil && self.tabBarController?.tabBar.isTranslucent == true) {
+		if self.tabBarController != nil && self.tabBarController?.tabBar.isTranslucent == true {
 			frame.size.height -= self.tabBarController!.tabBar.frame.height
 		}
 
 		self.contentView.frame = frame
 	}
+
+
 	func indexForViewController(_ viewController: UIViewController) -> Int {
 		for (index, element) in self.contents.enumerated() {
-			if (element == viewController) {
+			if element == viewController {
 				return index
 			}
 		}
 		return 0
 	}
 
+
 	func selectTabAtIndex(_ index: Int, swipe: Bool) {
-		if (index >= self.tabCount) {
+		if index >= self.tabCount {
 			return
 		}
 
@@ -313,11 +312,11 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.setActiveContentIndex(index)
 
 		if self.delegate != nil {
-			if (self.delegate!.responds(to: #selector(PagerDelegate.didChangeTabToIndex(_: index:)))) {
+			if self.delegate!.responds(to: #selector(PagerDelegate.didChangeTabToIndex(_: index:))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index)
-			} else if (self.delegate!.responds(to: #selector(PagerDelegate.didChangeTabToIndex(_: index: previousIndex:)))) {
+			} else if self.delegate!.responds(to: #selector(PagerDelegate.didChangeTabToIndex(_: index: previousIndex:))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index, previousIndex: previousIndex)
-			} else if (self.delegate!.responds(to: #selector(PagerDelegate.didChangeTabToIndex(_: index: previousIndex: swipe:)))) {
+			} else if self.delegate!.responds(to: #selector(PagerDelegate.didChangeTabToIndex(_: index: previousIndex: swipe:))) {
 				self.delegate!.didChangeTabToIndex!(self, index: index, previousIndex: previousIndex, swipe: swipe)
 			}
 
@@ -325,6 +324,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		// Updating selected tab color
 		updateSelectedTab(index)
 	}
+
 
 	func updateSelectedTab(_ index: Int) {
 
@@ -343,6 +343,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		}
 	}
 
+
 	func changeActiveTabIndex(_ newIndex: Int) {
 
 		self.activeTabIndex = newIndex
@@ -350,19 +351,19 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		let tabView: UIView = self.tabViewAtIndex(self.activeTabIndex)!
 		var frame: CGRect = tabView.frame
 
-		if (self.centerCurrentTab) {
-			
-			if ((frame.origin.x + frame.width + (self.tabsView!.frame.width / 2)) >= self.tabsView!.contentSize.width) {
+		if self.centerCurrentTab {
+
+			if (frame.origin.x + frame.width + (self.tabsView!.frame.width / 2)) >= self.tabsView!.contentSize.width {
 				frame.origin.x = (self.tabsView!.contentSize.width - self.tabsView!.frame.width)
 			} else {
-			
+
 				frame.origin.x += (frame.width / 2)
 				frame.origin.x -= (self.tabsView!.frame.width / 2)
 
-				if (frame.origin.x < 0) {
+				if frame.origin.x < 0 {
 					frame.origin.x = 0
 				}
-		
+
 			}
 
 		} else {
@@ -373,20 +374,18 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.tabsView!.setContentOffset(frame.origin, animated: true)
 	}
 
+
 	func tabViewAtIndex(_ index: Int) -> TabView? {
-		if (index >= self.tabCount) {
+		if index >= self.tabCount {
 			return nil
 		}
 
 		if (self.tabs[index] as UIView?) == nil {
 
 			var tabViewContent = UIView()
-			if let tab = self.dataSource.tabViewForIndex?(index, pager: self)
-			{
+			if let tab = self.dataSource.tabViewForIndex?(index, pager: self) {
 				tabViewContent = tab
-			}
-			else
-			{
+			} else {
 				let title = self.tabNames[index]
 
 				let label: UILabel = UILabel()
@@ -416,9 +415,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		var contentSizeWidth: CGFloat = 0.0
 
 		// Give the standard offset if fixFormerTabsPositions is provided as YES
-		if (self.fixFormerTabsPositions) {
+		if self.fixFormerTabsPositions {
 			// And if the centerCurrentTab is provided as YES fine tune the offset according to it
-			if (self.centerCurrentTab) {
+			if self.centerCurrentTab {
 				contentSizeWidth = (self.tabsView!.frame.width - self.tabWidth) / 2.0
 			} else {
 				contentSizeWidth = self.tabOffset
@@ -436,10 +435,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		}
 
 		// Extend contentSizeWidth if fixLatterTabsPositions is provided YES
-		if (self.fixLaterTabsPosition) {
+		if self.fixLaterTabsPosition {
 
 			// And if the centerCurrentTab is provided as YES fine tune the content size according to it
-			if (self.centerCurrentTab) {
+			if self.centerCurrentTab {
 				contentSizeWidth += (self.tabsView!.frame.width - self.tabWidth) / 2.0
 			} else {
 				contentSizeWidth += self.tabsView!.frame.width - self.tabWidth - self.tabOffset
@@ -450,16 +449,16 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	}
 
 	func viewControllerAtIndex(_ index: Int) -> UIViewController? {
-		if (index >= self.tabCount || index < 0) {
+		if index >= self.tabCount || index < 0 {
 			return nil
 		}
 
 		if (self.contents[index] as UIViewController?) == nil {
 			var viewController: UIViewController
 
-			if (self.dataSource!.responds(to: #selector(PagerDataSource.controllerForTabAtIndex(_: pager:)))) {
+			if self.dataSource!.responds(to: #selector(PagerDataSource.controllerForTabAtIndex(_: pager:))) {
 				viewController = self.dataSource.controllerForTabAtIndex!(index, pager: self)
-			} else if (self.dataSource!.responds(to: #selector(PagerDataSource.viewForTabAtIndex(_: pager:)))) {
+			} else if self.dataSource!.responds(to: #selector(PagerDataSource.viewForTabAtIndex(_: pager:))) {
 
 				let view: UIView = self.dataSource.viewForTabAtIndex!(index, pager: self)
 
@@ -486,7 +485,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			$0 as UIView? == tabView
 		}!
 
-		if (self.activeTabIndex != index) {
+		if self.activeTabIndex != index {
 			self.selectTabAtIndex(index)
 		}
 	}
@@ -514,7 +513,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	@nonobjc func setActiveContentIndex(_ activeContentIndex: Int) {
 		// Get the desired viewController
 		var viewController: UIViewController? = self.viewControllerAtIndex(activeContentIndex)!
-		if (viewController == nil) {
+		if viewController == nil {
 			viewController = UIViewController()
 			viewController!.view = UIView()
 			viewController!.view.backgroundColor = UIColor.clear
@@ -523,7 +522,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		weak var wPageViewController: UIPageViewController? = self.pageViewController
 		weak var wSelf: PagerController? = self
 
-		if (activeContentIndex == self.activeContentIndex) {
+		if activeContentIndex == self.activeContentIndex {
 			DispatchQueue.main.async(execute: {
 				_ in
 
@@ -532,7 +531,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 					wSelf!.animatingToTab = false
 				})
 			})
-		} else if (!(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex)) {
+		} else if !(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex) {
 
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
 			DispatchQueue.main.async(execute: {
@@ -542,7 +541,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 					completed in
 
 					wSelf?.animatingToTab = false
-                    
+
                     if completed {
                         DispatchQueue.main.async(execute: {
                             () -> Void in
@@ -565,15 +564,15 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		// Clean out of sight contents
 		var index: Int = self.activeContentIndex - 1
-		if (index >= 0 && index != activeContentIndex && index != activeContentIndex - 1) {
+		if index >= 0 && index != activeContentIndex && index != activeContentIndex - 1 {
 			self.contents[index] = nil
 		}
 		index = self.activeContentIndex
-		if (index != activeContentIndex - 1 && index != activeContentIndex && index != activeContentIndex + 1) {
+		if index != activeContentIndex - 1 && index != activeContentIndex && index != activeContentIndex + 1 {
 			self.contents[index] = nil
 		}
 		index = self.activeContentIndex + 1
-		if (index < self.contents.count && index != activeContentIndex && index != activeContentIndex + 1) {
+		if index < self.contents.count && index != activeContentIndex && index != activeContentIndex + 1 {
 			self.contents[index] = nil
 		}
 		self.activeContentIndex = activeContentIndex
@@ -583,31 +582,31 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: Responding to Scrolling and Dragging
 	open func scrollViewDidScroll(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:))) {
 				self.actualDelegate!.scrollViewDidScroll!(scrollView)
 			}
 		}
 
 		let tabView: UIView = self.tabViewAtIndex(self.activeTabIndex)!
 
-		if (!self.animatingToTab) {
+		if !self.animatingToTab {
 
 			// Get the related tab view position
 			var frame: CGRect = tabView.frame
 			let movedRatio: CGFloat = (scrollView.contentOffset.x / scrollView.frame.width) - 1
 			frame.origin.x += movedRatio * frame.width
 
-			if (self.centerCurrentTab) {
+			if self.centerCurrentTab {
 
 				frame.origin.x += (frame.size.width / 2)
 				frame.origin.x -= self.tabsView!.frame.width / 2
 				frame.size.width = self.tabsView!.frame.width
 
-				if (frame.origin.x < 0) {
+				if frame.origin.x < 0 {
 					frame.origin.x = 0
 				}
 
-				if ((frame.origin.x + frame.size.width) > self.tabsView!.contentSize.width) {
+				if (frame.origin.x + frame.size.width) > self.tabsView!.contentSize.width {
 					frame.origin.x = (self.tabsView!.contentSize.width - self.tabsView!.frame.width)
 				}
 			} else {
@@ -633,8 +632,8 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		let width: CGFloat = self.view.frame.width
 		let distance: CGFloat = tabView.frame.size.width
 
-		if (self.animation == PagerAnimation.during && !self.didTapOnTabView) {
-			if (scrollView.panGestureRecognizer.translation(in: scrollView.superview!).x > 0) {
+		if self.animation == PagerAnimation.during && !self.didTapOnTabView {
+			if scrollView.panGestureRecognizer.translation(in: scrollView.superview!).x > 0 {
 				let mov: CGFloat = width - scrollView.contentOffset.x
 				newX = rect.origin.x - ((distance * mov) / width)
 			} else {
@@ -642,10 +641,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 				newX = rect.origin.x + ((distance * mov) / width)
 			}
 			updateIndicator(newX)
-		} else if (self.animation == PagerAnimation.none) {
+		} else if self.animation == PagerAnimation.none {
 			newX = tabView.frame.origin.x
 			updateIndicator(newX)
-		} else if (self.animation == PagerAnimation.end || self.didTapOnTabView) {
+		} else if self.animation == PagerAnimation.end || self.didTapOnTabView {
 			newX = tabView.frame.origin.x
 			UIView.animate(withDuration: 0.35, animations: {
 				() -> Void in
@@ -656,7 +655,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDragging(_:))) {
 				self.actualDelegate!.scrollViewWillBeginDragging!(scrollView)
 			}
 		}
@@ -664,7 +663,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillEndDragging(_: withVelocity: targetContentOffset:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillEndDragging(_: withVelocity: targetContentOffset:))) {
 				self.actualDelegate!.scrollViewWillEndDragging!(scrollView, withVelocity: velocity, targetContentOffset: targetContentOffset)
 			}
 		}
@@ -672,7 +671,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDragging(_: willDecelerate:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDragging(_: willDecelerate:))) {
 				self.actualDelegate!.scrollViewDidEndDragging!(scrollView, willDecelerate: decelerate)
 			}
 		}
@@ -681,7 +680,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewShouldScrollToTop(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewShouldScrollToTop(_:))) {
 				return self.actualDelegate!.scrollViewShouldScrollToTop!(scrollView)
 			}
 		}
@@ -690,7 +689,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScrollToTop(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScrollToTop(_:))) {
 				self.actualDelegate!.scrollViewDidScrollToTop!(scrollView)
 			}
 		}
@@ -698,7 +697,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDecelerating(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginDecelerating(_:))) {
 				self.actualDelegate!.scrollViewWillBeginDecelerating!(scrollView)
 			}
 		}
@@ -706,7 +705,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndDecelerating(_:))) {
 				self.actualDelegate!.scrollViewDidEndDecelerating!(scrollView)
 			}
 		}
@@ -716,7 +715,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: Managing Zooming
 	open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.viewForZooming(in:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.viewForZooming(in:))) {
 				return self.actualDelegate!.viewForZooming!(in: scrollView)
 			}
 		}
@@ -725,7 +724,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:))) {
 				self.actualDelegate!.scrollViewWillBeginZooming!(scrollView, with: view)
 			}
 		}
@@ -733,7 +732,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:))) {
 				self.actualDelegate!.scrollViewDidEndZooming!(scrollView, with: view, atScale: scale)
 			}
 		}
@@ -741,7 +740,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	open func scrollViewDidZoom(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidZoom(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidZoom(_:))) {
 				self.actualDelegate!.scrollViewDidZoom!(scrollView)
 			}
 		}
@@ -750,7 +749,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// UIScrollViewDelegate, Responding to Scrolling Animations
 	open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
 		if self.actualDelegate != nil {
-			if (self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:)))) {
+			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:))) {
 				self.actualDelegate!.scrollViewDidEndScrollingAnimation!(scrollView)
 			}
 		}
@@ -783,4 +782,3 @@ extension Array {
 		return 0
 	}
 }
-

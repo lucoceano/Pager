@@ -20,29 +20,29 @@ extension UIColor {
 }
 
 extension UINavigationBar {
-  
+
   func hideBottomHairline() {
     let navigationBarImageView = hairlineImageViewInNavigationBar(self)
     navigationBarImageView!.isHidden = true
   }
-  
+
   func showBottomHairline() {
     let navigationBarImageView = hairlineImageViewInNavigationBar(self)
     navigationBarImageView!.isHidden = false
   }
-  
+
   fileprivate func hairlineImageViewInNavigationBar(_ view: UIView) -> UIImageView? {
-    if view.isKind(of: UIImageView.self) && view.bounds.size.height <= 1.0 {
-      return (view as! UIImageView)
-    }
-    
+	if let view  = view as? UIImageView, view.bounds.size.height <= 1.0 {
+			return view
+	}
+
     let subviews = (view.subviews as [UIView])
     for subview: UIView in subviews {
       if let imageView: UIImageView = hairlineImageViewInNavigationBar(subview) {
         return imageView
       }
     }
-    
+
     return nil
   }
 }

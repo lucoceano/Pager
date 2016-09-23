@@ -9,13 +9,13 @@
 import UIKit
 
 class GreyDetailViewController: UIViewController {
-    
+
     @IBOutlet weak var detailText: UILabel! {
         didSet {
             detailText.text = text
         }
     }
-    
+
     var text: String?
 
 }

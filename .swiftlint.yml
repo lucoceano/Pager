@@ -1,0 +1,17 @@
+disabled_rules:
+  - line_length
+  - type_name
+
+force_cast: warning
+
+function_body_length:
+  - 108
+  - 108
+
+type_body_length:
+  - 720
+  - 720
+
+file_length:
+  - 787
+  - 787
