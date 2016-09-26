@@ -31,6 +31,10 @@ class ViewController: PagerController, PagerDataSource {
 			tabControllers: [controller1, controller2, controller3, controller4, controller5, controller6])
 
 		customizeTab()
+
+		if let controller = controller4 as? GreyViewController {
+			controller.didSelectRow = pushGreyDetailViewController
+		}
 	}
 
 	// Customising the Tab's View
@@ -60,5 +64,15 @@ class ViewController: PagerController, PagerDataSource {
 	func changeTab() {
 		self.selectTabAtIndex(4)
 	}
+
+
+	func pushGreyDetailViewController(text: String) {
+		let storyboard = UIStoryboard(name: "Main", bundle: nil)
+		if let detail = storyboard.instantiateViewController(withIdentifier: "greyTableDetail") as? GreyDetailViewController {
+			detail.text = text
+			self.navigationController?.pushViewController(detail, animated: true)
+		}
+	}
+
 
 }
