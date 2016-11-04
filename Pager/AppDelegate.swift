@@ -12,22 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
-	var navController: UINavigationController!
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
 		self.window = UIWindow(frame: UIScreen.main.bounds)
-		let viewController = ViewController()
+		let tabBarVC = TabBarVC()
 
-		let barButtomItem = UIBarButtonItem(title: "Purple Tab", style: .plain, target: viewController, action: #selector(ViewController.changeTab))
 
-		//NavigationController with title and button
-		navController = UINavigationController(rootViewController: viewController)
-		navController.navigationBar.topItem?.title = "Pager"
-		navController.navigationBar.topItem?.rightBarButtonItem = barButtomItem
-		navController.navigationBar.hideBottomHairline()
-
-		self.window!.rootViewController = navController
+		self.window!.rootViewController = tabBarVC
 		self.window?.makeKeyAndVisible()
 
 		//NavigationBar customization
