@@ -46,7 +46,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var tabsViewBackgroundColor: UIColor = UIColor.gray
 	open var tabsTextColor: UIColor = UIColor.white
 	open var selectedTabTextColor = UIColor.white
-    open var tabsImageViewContentMode = UIViewContentMode.scaleAspectFit
+	open var tabsImageViewContentMode = UIViewContentMode.scaleAspectFit
 	open var dataSource: PagerDataSource!
 	open var delegate: PagerDelegate?
 	open var tabHeight: CGFloat = 44.0
@@ -92,32 +92,32 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: - Important Methods
 	// Initializing PagerController with Name of the Tabs and their respective ViewControllers
 	open func setupPager(tabNames: [String], tabControllers: [UIViewController]) {
-        let tabViews = tabNames.map { title -> UILabel in
-            let label = UILabel()
-            label.text = title
-            label.textColor = tabsTextColor
-            label.font = tabsTextFont
-            label.backgroundColor = .clear
-            label.sizeToFit()
-            return label
-        }
-        setupPager(views: tabViews, tabControllers: tabControllers)
+		let tabViews = tabNames.map { title -> UILabel in
+			let label = UILabel()
+			label.text = title
+			label.textColor = tabsTextColor
+			label.font = tabsTextFont
+			label.backgroundColor = .clear
+			label.sizeToFit()
+			return label
+		}
+		setupPager(views: tabViews, tabControllers: tabControllers)
     }
     
-    open func setupPager(tabImages: [UIImage], tabControllers: [UIViewController]) {
-        let tabViews = tabImages.map { image -> UIImageView in
-            let imageView = UIImageView(image: image)
-            imageView.contentMode = tabsImageViewContentMode
-            imageView.backgroundColor = .clear
-            return imageView
-        }
-        setupPager(views: tabViews, tabControllers: tabControllers)
-    }
+	open func setupPager(tabImages: [UIImage], tabControllers: [UIViewController]) {
+		let tabViews = tabImages.map { image -> UIImageView in
+			let imageView = UIImageView(image: image)
+			imageView.contentMode = tabsImageViewContentMode
+			imageView.backgroundColor = .clear
+			return imageView
+		}
+		setupPager(views: tabViews, tabControllers: tabControllers)
+	}
 
-    open func setupPager(views: [UIView], tabControllers: [UIViewController]) {
-        self.tabViews = views
-        self.tabControllers = tabControllers
-    }
+	open func setupPager(views: [UIView], tabControllers: [UIViewController]) {
+		self.tabViews = views
+		self.tabControllers = tabControllers
+	}
 
 	open func reloadData() {
 		self.defaultSetup()
