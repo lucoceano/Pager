@@ -46,6 +46,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var tabsViewBackgroundColor: UIColor = UIColor.gray
 	open var tabsTextColor: UIColor = UIColor.white
 	open var selectedTabTextColor = UIColor.white
+    open var tabsImageViewContentMode = UIViewContentMode.scaleAspectFit
 	open var dataSource: PagerDataSource!
 	open var delegate: PagerDelegate?
 	open var tabHeight: CGFloat = 44.0
@@ -96,9 +97,19 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
             label.text = title
             label.textColor = tabsTextColor
             label.font = tabsTextFont
-            label.backgroundColor = UIColor.clear
+            label.backgroundColor = .clear
             label.sizeToFit()
             return label
+        }
+        setupPager(views: tabViews, tabControllers: tabControllers)
+    }
+    
+    open func setupPager(tabImages: [UIImage], tabControllers: [UIViewController]) {
+        let tabViews = tabImages.map { image -> UIImageView in
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = tabsImageViewContentMode
+            imageView.backgroundColor = .clear
+            return imageView
         }
         setupPager(views: tabViews, tabControllers: tabControllers)
     }
