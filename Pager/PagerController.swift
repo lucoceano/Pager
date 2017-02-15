@@ -102,8 +102,8 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			return label
 		}
 		setupPager(views: tabViews, tabControllers: tabControllers)
-    }
-    
+	}
+
 	open func setupPager(tabImages: [UIImage], tabControllers: [UIViewController]) {
 		let tabViews = tabImages.map { image -> UIImageView in
 			let imageView = UIImageView(image: image)
