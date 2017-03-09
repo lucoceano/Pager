@@ -47,8 +47,8 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var tabsTextColor: UIColor = UIColor.white
 	open var selectedTabTextColor = UIColor.white
 	open var tabsImageViewContentMode = UIViewContentMode.scaleAspectFit
-	open var dataSource: PagerDataSource!
-	open var delegate: PagerDelegate?
+	open weak var dataSource: PagerDataSource?
+	open weak var delegate: PagerDelegate?
 	open var tabHeight: CGFloat = 44.0
 	open var tabTopOffset: CGFloat = 0.0
 	open var tabOffset: CGFloat = 56.0
@@ -182,8 +182,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.underlineStroke.removeFromSuperview()
 
 		// Get tabCount from dataSource
-
-		if let num = self.dataSource!.numberOfTabs?(self) {
+		
+		if let dataSource = self.dataSource,
+			let num = dataSource.numberOfTabs?(self) {
 			self.tabCount = num
 		} else {
 			self.tabCount = tabControllers.count
@@ -400,14 +401,17 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 
 	func tabViewAtIndex(_ index: Int) -> TabView? {
-		if index >= self.tabCount {
-			return nil
+		guard
+			let dataSource = self.dataSource,
+			index < self.tabCount
+			else {
+				return nil
 		}
 
 		if (self.tabs[index] as UIView?) == nil {
 
 			var tabViewContent = UIView()
-			if let tab = self.dataSource.tabViewForIndex?(index, pager: self) {
+			if let tab = dataSource.tabViewForIndex?(index, pager: self) {
 				tabViewContent = tab
 			} else {
 				tabViewContent = tabViews[index]
@@ -465,18 +469,21 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	}
 
 	func viewControllerAtIndex(_ index: Int) -> UIViewController? {
-		if index >= self.tabCount || index < 0 {
-			return nil
+		guard
+			let dataSource = self.dataSource,
+			index < self.tabCount && index >= 0
+			else {
+				return nil
 		}
 
 		if (self.contents[index] as UIViewController?) == nil {
 			var viewController: UIViewController
 
-			if self.dataSource!.responds(to: #selector(PagerDataSource.controllerForTabAtIndex(_: pager:))) {
-				viewController = self.dataSource.controllerForTabAtIndex!(index, pager: self)
-			} else if self.dataSource!.responds(to: #selector(PagerDataSource.viewForTabAtIndex(_: pager:))) {
+			if dataSource.responds(to: #selector(PagerDataSource.controllerForTabAtIndex(_: pager:))) {
+				viewController = dataSource.controllerForTabAtIndex!(index, pager: self)
+			} else if dataSource.responds(to: #selector(PagerDataSource.viewForTabAtIndex(_: pager:))) {
 
-				let view: UIView = self.dataSource.viewForTabAtIndex!(index, pager: self)
+				let view: UIView = dataSource.viewForTabAtIndex!(index, pager: self)
 
 				// Adjust view's bounds to match the pageView's bounds
 				let pageView: UIView = self.view.viewWithTag(34)!
