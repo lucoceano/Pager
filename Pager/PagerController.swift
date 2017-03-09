@@ -61,6 +61,8 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	open var centerCurrentTab: Bool = false
 	open var fixFormerTabsPositions: Bool = false
 	open var fixLaterTabsPosition: Bool = false
+	open var ignoreTopBarHeight: Bool = false
+	open var ignoreBottomBarHeight: Bool = false
 	fileprivate var tabViews: [UIView] = []
 	fileprivate var tabControllers: [UIViewController] = []
 
@@ -283,7 +285,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	func layoutSubViews() {
 		var topLayoutGuide: CGFloat = 0.0
-		if self.navigationController?.navigationBar.isTranslucent != false {
+		if !ignoreTopBarHeight && self.navigationController?.navigationBar.isTranslucent != false {
 			topLayoutGuide = UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
 
 			if let nav = self.navigationController {
@@ -305,7 +307,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		frame.size.height = self.view.frame.height - (topLayoutGuide + self.tabsView!.frame.height + tabTopOffset)
 
-		if self.tabBarController != nil && self.tabBarController?.tabBar.isTranslucent == true {
+		if !ignoreBottomBarHeight && self.tabBarController != nil && self.tabBarController?.tabBar.isTranslucent == true {
 			frame.size.height -= self.tabBarController!.tabBar.frame.height
 		}
 
