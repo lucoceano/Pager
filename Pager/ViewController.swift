@@ -33,7 +33,13 @@ class ViewController: PagerController, PagerDataSource {
 		customizeTab()
 
 		if let controller = controller4 as? GreyViewController {
-			controller.didSelectRow = pushGreyDetailViewController
+			controller.didSelectRow = { [weak self] (text: String) in
+				let storyboard = UIStoryboard(name: "Main", bundle: nil)
+				if let detail = storyboard.instantiateViewController(withIdentifier: "greyTableDetail") as? GreyDetailViewController {
+					detail.text = text
+					self?.navigationController?.pushViewController(detail, animated: true)
+				}
+			}
 		}
 	}
 
@@ -63,15 +69,6 @@ class ViewController: PagerController, PagerDataSource {
 	// Programatically selecting a tab. This function is getting called on AppDelegate
 	func changeTab() {
 		self.selectTabAtIndex(4)
-	}
-
-
-	func pushGreyDetailViewController(text: String) {
-		let storyboard = UIStoryboard(name: "Main", bundle: nil)
-		if let detail = storyboard.instantiateViewController(withIdentifier: "greyTableDetail") as? GreyDetailViewController {
-			detail.text = text
-			self.navigationController?.pushViewController(detail, animated: true)
-		}
 	}
 
 
