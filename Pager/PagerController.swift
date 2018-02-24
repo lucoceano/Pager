@@ -589,11 +589,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	// MARK: - UIScrollViewDelegate
 	// MARK: Responding to Scrolling and Dragging
 	open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:))) {
-				self.actualDelegate!.scrollViewDidScroll!(scrollView)
-			}
-		}
+        if self.actualDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewDidScroll(_:))) ?? false {
+            self.actualDelegate?.scrollViewDidScroll?(scrollView)
+        }
 
 		let tabView: UIView = self.tabViewAtIndex(self.activeTabIndex)!
 
@@ -722,45 +720,36 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 	// MARK: Managing Zooming
 	open func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.viewForZooming(in:))) {
-				return self.actualDelegate!.viewForZooming!(in: scrollView)
-			}
-		}
+        if self.actualDelegate?.responds(to: #selector(UIScrollViewDelegate.viewForZooming(in:))) ?? false {
+            return self.actualDelegate?.viewForZooming!(in: scrollView)
+        }
+
 		return nil
 	}
 
 	open func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:))) {
-				self.actualDelegate!.scrollViewWillBeginZooming!(scrollView, with: view)
-			}
-		}
+        if self.actualDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewWillBeginZooming(_:with:))) ?? false {
+            self.actualDelegate?.scrollViewWillBeginZooming!(scrollView, with: view)
+        }
 	}
 
 	open func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:))) {
-				self.actualDelegate!.scrollViewDidEndZooming!(scrollView, with: view, atScale: scale)
-			}
-		}
+        if self.actualDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndZooming(_:with:atScale:))) ?? false {
+            self.actualDelegate?.scrollViewDidEndZooming!(scrollView, with: view, atScale: scale)
+        }
 	}
 
 	open func scrollViewDidZoom(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidZoom(_:))) {
-				self.actualDelegate!.scrollViewDidZoom!(scrollView)
-			}
-		}
+        if self.actualDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewDidZoom(_:))) ?? false {
+            self.actualDelegate?.scrollViewDidZoom!(scrollView)
+        }
 	}
 
 	// UIScrollViewDelegate, Responding to Scrolling Animations
 	open func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-		if self.actualDelegate != nil {
-			if self.actualDelegate!.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:))) {
-				self.actualDelegate!.scrollViewDidEndScrollingAnimation!(scrollView)
-			}
-		}
+        if self.actualDelegate?.responds(to: #selector(UIScrollViewDelegate.scrollViewDidEndScrollingAnimation(_:))) ?? false {
+            self.actualDelegate?.scrollViewDidEndScrollingAnimation!(scrollView)
+        }
 		self.didTapOnTabView = false
 	}
 }
