@@ -9,7 +9,7 @@
 import Foundation
 import UIKit.UITableView
 
-//MARK: - Pager Enums
+// MARK: - Pager Enums
 //Enum for the location of the tab bar
 public enum PagerTabLocation: Int {
 	case none = 0 // None will go to the bottom
@@ -24,7 +24,7 @@ public enum PagerAnimation: Int {
 	case during = 2 // pager indicator will animate as the VC changes
 }
 
-//MARK: - Protocols
+// MARK: - Protocols
 @objc public protocol PagerDelegate: NSObjectProtocol {
 	@objc optional func didChangeTabToIndex(_ pager: PagerController, index: Int)
 	@objc optional func didChangeTabToIndex(_ pager: PagerController, index: Int, previousIndex: Int)
@@ -154,7 +154,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.changeActiveTabIndex(self.activeTabIndex)
 	}
 
-
 	override open func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
@@ -184,7 +183,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.underlineStroke.removeFromSuperview()
 
 		// Get tabCount from dataSource
-		
 		if let dataSource = self.dataSource,
 			let num = dataSource.numberOfTabs?(self) {
 			self.tabCount = num
@@ -314,16 +312,12 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		self.contentView.frame = frame
 	}
 
-
 	func indexForViewController(_ viewController: UIViewController) -> Int {
-		for (index, element) in self.contents.enumerated() {
-			if element == viewController {
-				return index
-			}
+		for (index, element) in self.contents.enumerated() where element == viewController {
+            return index
 		}
 		return 0
 	}
-
 
 	func selectTabAtIndex(_ index: Int, swipe: Bool) {
 		if index >= self.tabCount {
@@ -352,7 +346,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		updateSelectedTab(index)
 	}
 
-
 	func updateSelectedTab(_ index: Int) {
 
 		// Resetting all tab colors to white
@@ -369,7 +362,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			label.textColor = selectedTabTextColor
 		}
 	}
-
 
 	func changeActiveTabIndex(_ newIndex: Int) {
 
@@ -400,7 +392,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 		self.tabsView!.setContentOffset(frame.origin, animated: true)
 	}
-
 
 	func tabViewAtIndex(_ index: Int) -> TabView? {
 		guard
@@ -548,23 +539,17 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		weak var wSelf: PagerController? = self
 
 		if activeContentIndex == self.activeContentIndex {
-			DispatchQueue.main.async(execute: {
-				_ in
-
-				self.pageViewController.setViewControllers([viewController!], direction: .forward, animated: false, completion: {
-					(completed: Bool) -> Void in
+			DispatchQueue.main.async(execute: { _ in
+				self.pageViewController.setViewControllers([viewController!], direction: .forward, animated: false, completion: { _ -> Void in
 					wSelf!.animatingToTab = false
 				})
 			})
 		} else if !(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex) {
 
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
-			DispatchQueue.main.async(execute: {
-				_ in
+			DispatchQueue.main.async(execute: { _ in
 
-				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: {
-					completed in
-
+				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: { completed in
 					wSelf?.animatingToTab = false
 
                     if completed {
@@ -577,11 +562,9 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			})
 		} else {
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
-			DispatchQueue.main.async(execute: {
-				_ in
+			DispatchQueue.main.async(execute: { _ in
 
-				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: {
-					(completed: Bool) -> Void in
+				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: { _ -> Void in
 					wSelf!.animatingToTab = true
 				})
 			})
@@ -782,7 +765,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 	}
 }
 
-//MARK: - TabView
+// MARK: - TabView
 class TabView: UIView {
 
 	override init(frame: CGRect) {
@@ -796,7 +779,7 @@ class TabView: UIView {
 	}
 }
 
-//MARK: - Extensions
+// MARK: - Extensions
 extension Array {
 	func find(_ includedElement: (Element) -> Bool) -> Int? {
 		for (idx, element) in self.enumerated() {
