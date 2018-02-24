@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window?.makeKeyAndVisible()
 
 		//NavigationBar customization
-		UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+		UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
 		UINavigationBar.appearance().shadowImage = UIImage()
 		UINavigationBar.appearance().barTintColor = UIColor(rgb: 0x00AA00)
 		UINavigationBar.appearance().tintColor = UIColor.white

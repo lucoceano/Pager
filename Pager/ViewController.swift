@@ -66,7 +66,7 @@ class ViewController: PagerController, PagerDataSource {
 	}
 
 	// Programatically selecting a tab. This function is getting called on AppDelegate
-	func changeTab() {
+	@objc func changeTab() {
 		self.selectTabAtIndex(4)
 	}
 

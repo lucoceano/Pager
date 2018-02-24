@@ -539,7 +539,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		weak var wSelf: PagerController? = self
 
 		if activeContentIndex == self.activeContentIndex {
-			DispatchQueue.main.async(execute: { _ in
+			DispatchQueue.main.async(execute: {
 				self.pageViewController.setViewControllers([viewController!], direction: .forward, animated: false, completion: { _ -> Void in
 					wSelf!.animatingToTab = false
 				})
@@ -547,7 +547,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		} else if !(activeContentIndex + 1 == self.activeContentIndex || activeContentIndex - 1 == self.activeContentIndex) {
 
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
-			DispatchQueue.main.async(execute: { _ in
+			DispatchQueue.main.async(execute: {
 
 				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: { completed in
 					wSelf?.animatingToTab = false
@@ -562,7 +562,7 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 			})
 		} else {
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
-			DispatchQueue.main.async(execute: { _ in
+			DispatchQueue.main.async(execute: {
 
 				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: { _ -> Void in
 					wSelf!.animatingToTab = true

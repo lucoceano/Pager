@@ -13,21 +13,10 @@
 		C8B7D1431AB25F9300E9347C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1411AB25F9300E9347C /* Main.storyboard */; };
 		C8B7D1451AB25F9300E9347C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1441AB25F9300E9347C /* Images.xcassets */; };
 		C8B7D1481AB25F9300E9347C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1461AB25F9300E9347C /* LaunchScreen.xib */; };
-		C8B7D1541AB25F9300E9347C /* PagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D1531AB25F9300E9347C /* PagerTests.swift */; };
 		C8B7D15F1AB2600700E9347C /* PagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D15E1AB2600700E9347C /* PagerController.swift */; };
 		C8E736D71D92CAD5001491E6 /* GreyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E736D51D92CAD5001491E6 /* GreyDetailViewController.swift */; };
 		C8E736D81D92CAD5001491E6 /* GreyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E736D61D92CAD5001491E6 /* GreyViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C8B7D14E1AB25F9300E9347C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = C8B7D1301AB25F9300E9347C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C8B7D1371AB25F9300E9347C;
-			remoteInfo = Pager;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C2652A581C9E894D00FE8F50 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -38,7 +27,6 @@
 		C8B7D1421AB25F9300E9347C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C8B7D1441AB25F9300E9347C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C8B7D1471AB25F9300E9347C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		C8B7D14D1AB25F9300E9347C /* PagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B7D1521AB25F9300E9347C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B7D1531AB25F9300E9347C /* PagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTests.swift; sourceTree = "<group>"; };
 		C8B7D15E1AB2600700E9347C /* PagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerController.swift; sourceTree = "<group>"; };
@@ -48,13 +36,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		C8B7D1351AB25F9300E9347C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8B7D14A1AB25F9300E9347C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -77,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				C8B7D1381AB25F9300E9347C /* Pager.app */,
-				C8B7D14D1AB25F9300E9347C /* PagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,24 +133,6 @@
 			productReference = C8B7D1381AB25F9300E9347C /* Pager.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C8B7D14C1AB25F9300E9347C /* PagerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C8B7D15A1AB25F9300E9347C /* Build configuration list for PBXNativeTarget "PagerTests" */;
-			buildPhases = (
-				C8B7D1491AB25F9300E9347C /* Sources */,
-				C8B7D14A1AB25F9300E9347C /* Frameworks */,
-				C8B7D14B1AB25F9300E9347C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C8B7D14F1AB25F9300E9347C /* PBXTargetDependency */,
-			);
-			name = PagerTests;
-			productName = PagerTests;
-			productReference = C8B7D14D1AB25F9300E9347C /* PagerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,12 +146,7 @@
 				TargetAttributes = {
 					C8B7D1371AB25F9300E9347C = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
-					};
-					C8B7D14C1AB25F9300E9347C = {
-						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0800;
-						TestTargetID = C8B7D1371AB25F9300E9347C;
+						LastSwiftMigration = 0920;
 					};
 				};
 			};
@@ -207,7 +164,6 @@
 			projectRoot = "";
 			targets = (
 				C8B7D1371AB25F9300E9347C /* Pager */,
-				C8B7D14C1AB25F9300E9347C /* PagerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -220,13 +176,6 @@
 				C8B7D1431AB25F9300E9347C /* Main.storyboard in Resources */,
 				C8B7D1481AB25F9300E9347C /* LaunchScreen.xib in Resources */,
 				C8B7D1451AB25F9300E9347C /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C8B7D14B1AB25F9300E9347C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,23 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C8B7D1491AB25F9300E9347C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C8B7D1541AB25F9300E9347C /* PagerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C8B7D14F1AB25F9300E9347C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C8B7D1371AB25F9300E9347C /* Pager */;
-			targetProxy = C8B7D14E1AB25F9300E9347C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		C8B7D1411AB25F9300E9347C /* Main.storyboard */ = {
@@ -410,7 +343,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.ckl.pager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -426,43 +360,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.ckl.pager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		C8B7D15B1AB25F9300E9347C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = PagerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pager.app/Pager";
-			};
-			name = Debug;
-		};
-		C8B7D15C1AB25F9300E9347C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = PagerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pager.app/Pager";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -483,15 +382,6 @@
 			buildConfigurations = (
 				C8B7D1581AB25F9300E9347C /* Debug */,
 				C8B7D1591AB25F9300E9347C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C8B7D15A1AB25F9300E9347C /* Build configuration list for PBXNativeTarget "PagerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C8B7D15B1AB25F9300E9347C /* Debug */,
-				C8B7D15C1AB25F9300E9347C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
