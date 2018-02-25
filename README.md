@@ -1,14 +1,7 @@
 
-![](http://i24.photobucket.com/albums/c50/KKS-KKS/Screen%20Shot%202015-03-17%20at%2010.18.44%20AM_1.png)
-
-[![Language](https://img.shields.io/badge/swift-3.0-orange.svg)](http://swift.org)
+[![Language](https://img.shields.io/badge/swift-4.0-green.svg)](http://swift.org)
 
 Pager is the simplest and best way to implement sliding view controllers.
-
-## Example
-![](https://dl.dropboxusercontent.com/u/25590533/screen2.png)
-![](https://dl.dropboxusercontent.com/u/25590533/PagerGif.gif)
-
 
 ## Installation
 Drop in the Spring folder to your Xcode project.

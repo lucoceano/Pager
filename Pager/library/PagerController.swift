@@ -286,6 +286,10 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		if !ignoreTopBarHeight && self.navigationController?.navigationBar.isTranslucent != false {
 			topLayoutGuide = UIApplication.shared.isStatusBarHidden ? 0.0 : 20.0
 
+            if UIDevice.isIphoneX {
+                topLayoutGuide += 24.0
+            }
+
 			if let nav = self.navigationController {
 				topLayoutGuide += nav.navigationBar.frame.size.height
 			}
@@ -548,7 +552,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
 			DispatchQueue.main.async(execute: {
-
 				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: { completed in
 					wSelf?.animatingToTab = false
 
@@ -563,7 +566,6 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
 		} else {
 			let direction: UIPageViewControllerNavigationDirection = (activeContentIndex < self.activeContentIndex) ? .reverse : .forward
 			DispatchQueue.main.async(execute: {
-
 				self.pageViewController.setViewControllers([viewController!], direction: direction, animated: true, completion: { _ -> Void in
 					wSelf!.animatingToTab = true
 				})
@@ -751,31 +753,5 @@ open class PagerController: UIViewController, UIPageViewControllerDataSource, UI
             self.actualDelegate?.scrollViewDidEndScrollingAnimation!(scrollView)
         }
 		self.didTapOnTabView = false
-	}
-}
-
-// MARK: - TabView
-class TabView: UIView {
-
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-		self.backgroundColor = UIColor.clear
-	}
-
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-		self.backgroundColor = UIColor.clear
-	}
-}
-
-// MARK: - Extensions
-extension Array {
-	func find(_ includedElement: (Element) -> Bool) -> Int? {
-		for (idx, element) in self.enumerated() {
-			if includedElement(element) {
-				return idx
-			}
-		}
-		return 0
 	}
 }

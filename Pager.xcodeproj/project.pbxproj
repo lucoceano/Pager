@@ -8,18 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		C2652A591C9E894D00FE8F50 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2652A581C9E894D00FE8F50 /* Extensions.swift */; };
+		C876EF5F2042364400701C03 /* PagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C876EF5E2042364300701C03 /* PagerController.swift */; };
+		C876EF612042366800701C03 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C876EF602042366800701C03 /* Utils.swift */; };
+		C876EF63204236A500701C03 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C876EF62204236A500701C03 /* TabView.swift */; };
 		C8B7D13E1AB25F9300E9347C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D13D1AB25F9300E9347C /* AppDelegate.swift */; };
 		C8B7D1401AB25F9300E9347C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D13F1AB25F9300E9347C /* ViewController.swift */; };
 		C8B7D1431AB25F9300E9347C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1411AB25F9300E9347C /* Main.storyboard */; };
 		C8B7D1451AB25F9300E9347C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1441AB25F9300E9347C /* Images.xcassets */; };
 		C8B7D1481AB25F9300E9347C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B7D1461AB25F9300E9347C /* LaunchScreen.xib */; };
-		C8B7D15F1AB2600700E9347C /* PagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B7D15E1AB2600700E9347C /* PagerController.swift */; };
 		C8E736D71D92CAD5001491E6 /* GreyDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E736D51D92CAD5001491E6 /* GreyDetailViewController.swift */; };
 		C8E736D81D92CAD5001491E6 /* GreyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E736D61D92CAD5001491E6 /* GreyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C2652A581C9E894D00FE8F50 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C876EF5E2042364300701C03 /* PagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerController.swift; sourceTree = "<group>"; };
+		C876EF602042366800701C03 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		C876EF62204236A500701C03 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		C8B7D1381AB25F9300E9347C /* Pager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B7D13C1AB25F9300E9347C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B7D13D1AB25F9300E9347C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -29,7 +34,6 @@
 		C8B7D1471AB25F9300E9347C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C8B7D1521AB25F9300E9347C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B7D1531AB25F9300E9347C /* PagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerTests.swift; sourceTree = "<group>"; };
-		C8B7D15E1AB2600700E9347C /* PagerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagerController.swift; sourceTree = "<group>"; };
 		C8E736D51D92CAD5001491E6 /* GreyDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyDetailViewController.swift; sourceTree = "<group>"; };
 		C8E736D61D92CAD5001491E6 /* GreyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +49,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C876EF5D2042364300701C03 /* library */ = {
+			isa = PBXGroup;
+			children = (
+				C876EF5E2042364300701C03 /* PagerController.swift */,
+				C876EF602042366800701C03 /* Utils.swift */,
+				C876EF62204236A500701C03 /* TabView.swift */,
+			);
+			path = library;
+			sourceTree = "<group>";
+		};
 		C8B7D12F1AB25F9300E9347C = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +81,7 @@
 			children = (
 				C8E736D51D92CAD5001491E6 /* GreyDetailViewController.swift */,
 				C8E736D61D92CAD5001491E6 /* GreyViewController.swift */,
-				C8B7D15D1AB25FAC00E9347C /* Library */,
+				C876EF5D2042364300701C03 /* library */,
 				C8B7D13D1AB25F9300E9347C /* AppDelegate.swift */,
 				C8B7D13F1AB25F9300E9347C /* ViewController.swift */,
 				C2652A581C9E894D00FE8F50 /* Extensions.swift */,
@@ -102,14 +116,6 @@
 				C8B7D1521AB25F9300E9347C /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		C8B7D15D1AB25FAC00E9347C /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				C8B7D15E1AB2600700E9347C /* PagerController.swift */,
-			);
-			name = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,9 +209,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C876EF5F2042364400701C03 /* PagerController.swift in Sources */,
 				C8B7D1401AB25F9300E9347C /* ViewController.swift in Sources */,
+				C876EF63204236A500701C03 /* TabView.swift in Sources */,
 				C8B7D13E1AB25F9300E9347C /* AppDelegate.swift in Sources */,
-				C8B7D15F1AB2600700E9347C /* PagerController.swift in Sources */,
+				C876EF612042366800701C03 /* Utils.swift in Sources */,
 				C2652A591C9E894D00FE8F50 /* Extensions.swift in Sources */,
 				C8E736D71D92CAD5001491E6 /* GreyDetailViewController.swift in Sources */,
 				C8E736D81D92CAD5001491E6 /* GreyViewController.swift in Sources */,

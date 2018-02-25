@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Pager'
-  s.version = '1.2.0'
+  s.version = '1.3.0'
   s.license = 'MIT'
   s.summary = 'Easily create sliding tabs with Pager.'
   s.homepage = 'https://github.com/lucoceano/Pager'
@@ -8,5 +8,5 @@ Pod::Spec.new do |s|
   s.source = { :git => 'https://github.com/lucoceano/Pager.git', :tag => s.version.to_s }
   s.requires_arc = true
   s.ios.deployment_target = '8.0'
-  s.source_files = 'Pager/PagerController.swift'
+  s.source_files = 'Pager/library/*.swift'
 end
